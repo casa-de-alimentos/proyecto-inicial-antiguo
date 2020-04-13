@@ -9,21 +9,76 @@
   box-sizing: border-box;
 }
 
-body {
-  background: #E5E5E5;
+/* Change color line */
+.input-field input[type=text]:focus {
+	border-bottom: 1px solid #ef5350 !important;
+	box-shadow: 0 1px 0 0 #ef5350 !important;
 }
 
-header {
+/* Change color line */
+.input-field input[type=number]:focus {
+	border-bottom: 1px solid #ef5350 !important;
+	box-shadow: 0 1px 0 0 #ef5350 !important;
+}
+
+
+/* Change color label */
+.input-field input[type=text]:focus + label {
+	color: #ef5350 !important;
+}
+
+/* Change color label */
+.input-field input[type=number]:focus + label {
+	color: #ef5350 !important;
+}
+
+/* Change color text select */
+.dropdown-content li>a, .dropdown-content li>span {
+	color: #ef5350 !important;
+}
+
+/* Change color text select disable */
+.select-dropdown li.disabled, .select-dropdown li.disabled>span, .select-dropdown li.optgroup {
+	color: rgba(0,0,0,0.3) !important;
+}
+
+/* Change color checkbox */
+input[type="checkbox"]:checked+span:not(.lever):before {
+  border-right: 2px solid #ef5350 !important;
+  border-bottom: 2px solid #ef5350 !important;
+}
+
+/* Change color radio */
+input[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
+	background-color: #ef5350 !important;
+}
+
+/* Change color radio */
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after {
+	border: 2px solid #ef5350 !important;
+}
+
+ /* icon prefix focus color */
+   .input-field .prefix.active {
+     color: #ef5350 !important;
+   }
+
+body {
+  background: #E5E5E5;
+	font-family: Roboto;
+}
+
+header.menu {
   position: fixed;
   background: linear-gradient(180deg, #CF0B0B, #F96314);
-  height: 50px;
+  height: 40px;
   width: 100%;
   display: flex;
   align-items: center;
   z-index: 100;
 }
 
-header ul {
+header.menu ul {
   display: flex;
   justify-content: space-between;
   list-style:none;
@@ -31,21 +86,116 @@ header ul {
   margin: 0px 20px;
 }
 
-header ul li a {
+header.menu ul li a {
   text-decoration: none;
   color: white;
 }
 
 main {
-  padding-top: 80px;
+  padding-top: 70px;
 }
 
 #drawer {
-  background: red;
+  background: #fff;
   position: fixed;
   display: flex;
+	flex-direction: column;
   width: 300px;
+	height: 100%;
   left: -300px;
   top:0;
   z-index: 200;
+}
+
+#drawer .drawerMenu {
+  background: linear-gradient(180deg, #CF0B0B, #F96314);
+	width: 100%;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+#drawer .drawerMenu i {
+	margin-right: 20px;
+}
+
+#closeDrawer {
+	color: white;
+	cursor: pointer;
+}
+
+#oscuroB {
+	position: fixed;
+	z-index: 150;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	display: none;
+	background: rgba(0,0,0,0.4);
+}
+
+#drawer .contenedor {
+	margin-top: 20px;
+}
+
+#drawer .userInfo {
+	display: flex;
+	flex-direction: column;
+	margin: 0px 20px;
+}
+
+#drawer .userInfo img {
+	background: red;
+	border-radius: 100px;
+	margin-bottom: 10px;
+}
+
+#drawer .userInfo span {
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+#drawer hr {
+	background: rgba(0,0,0,0.3);
+	height: 2px;
+	margin-bottom: 20px;
+}
+
+#drawer .menu {
+	display: flex;
+	flex-direction: column;
+	margin: 00px 20px;
+}
+
+#drawer .menu .agrupItem {
+	padding: 5px;
+	color: black;
+	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	border-radius: 10px;
+	transition: 0.5s;
+	text-decoration: none;
+}
+
+#drawer .menu .agrupItem:hover {
+	background: rgba(255,39,39,0.1);
+	color: rgb(255,39,39);
+	cursor: pointer;
+}
+
+#drawer .menu .active {
+	background: rgba(255,39,39,0.1);
+	color: rgb(255,39,39);
+}
+
+#drawer .menu i {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#drawer .menu .subMenu {
+	display: none;
+	margin-left: 30px;
 }

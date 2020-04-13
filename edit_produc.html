@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Panel</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+</head>
+<body>
+  <header class="menu">
+    <ul>
+      <li>
+        <a href="#" id="openDrawer">
+					<i class="material-icons" title="menu">menu</i>
+				</a>
+      </li>
+      <li>
+        <a href="index.html"><i class="material-icons" title="salir">exit_to_app</i></a>
+      </li>
+    </ul>
+  </header>
+  <main class="panelMain">
+		<span class="panelTitle">Editar Productos</span>
+    <div class="boxWidthAll">
+      <div class="boxContent">
+        <form id="editProducForm" action="#">
+					<div class="option">
+						<p>
+							<label>
+								<input name="option" class="with-gap" type="radio" value="add" />
+								<span>Añadir</span>
+							</label>
+						</p>
+						<p>
+							<label>
+								<input name="option" class="with-gap" type="radio" value="modify" />
+								<span>Modificar</span>
+							</label>
+						</p>
+						<p>
+							<label>
+								<input name="option" class="with-gap" type="radio" value="delete" />
+								<span>Eliminar</span>
+							</label>
+						</p>
+					</div>
+					<div class="inputs">
+						<div class="input-field col s6">
+							<input id="idP"type="text" name="id" />
+							<label for="idP">ID Producto</label>
+						</div>
+						<div class="input-field col s6">
+							<input id="name" 
+								type="text" 
+								name="name"
+							/>
+							<label for="name">Nombre del producto</label>
+						</div>
+						<div class="input-field col s6">
+							<input id="number" 
+								type="number" 
+								name="stock"
+							/>
+							<label for="number">Cantidad inicial</label>
+						</div>
+					</div>
+					<button 
+						class="btn waves-effect red lighten-1" type="submit" name="action"
+					>
+						Editar
+					</button>
+				</form>
+      </div>
+    </div>
+    <div class="box">
+      <span class="boxTitle">
+        Productos registrados
+      </span>
+      <div class="boxContent">
+        <div id="listProducts">
+					<div class="fila">
+						<span class="item">Arina</span>
+						<div class="options">
+							<span>Modificar</span>
+							<span>Eliminar</span>
+						</div>
+					</div>
+					
+					<div class="fila">
+						<span class="item">Azúcar</span>
+						<div class="options">
+							<span>Modificar</span>
+							<span>Eliminar</span>
+						</div>
+					</div>
+					
+					<div class="fila">
+						<span class="item">Arroz</span>
+						<div class="options">
+							<span>Modificar</span>
+							<span>Eliminar</span>
+						</div>
+					</div>
+					
+					<div class="fila">
+						<span class="item">Leche</span>
+						<div class="options">
+							<span>Modificar</span>
+							<span>Eliminar</span>
+						</div>
+					</div>
+					
+					<div class="fila">
+						<span class="item">Aceite</span>
+						<div class="options">
+							<span>Modificar</span>
+							<span>Eliminar</span>
+						</div>
+					</div>
+				</div>
+      </div>
+    </div>
+  </main>
+
+  <div id="drawer">
+    <header class="drawerMenu">
+      <i id="closeDrawer" class="material-icons" title="menu">close</i>
+    </header>
+		<div class="contenedor">
+			<div class="userInfo">
+				<img src="" alt="" width="70" height="70" />
+				<span>Usuario de prueba</span>
+			</div>
+			<hr/>
+			<div class="menu">
+				<a href="panel.html" class="agrupItem">
+					<i class="material-icons" title="menu">home</i>
+					Inicio
+				</a>
+				<span class="agrupItem openSubmenu active" data-open="inv">
+					<i class="material-icons" title="menu">chrome_reader_mode</i>
+					Inventario
+				</span>
+				<div id="inv" class="subMenu">
+					<a class="agrupItem active">
+						<i class="material-icons" title="menu">mode_edit</i>
+						Editar produtos
+					</a>
+					<a href="suministros.html" class="agrupItem">
+						<i class="material-icons" title="menu">content_paste</i>
+						Entrada de suminsitros
+					</a>
+					<a href="preparar_comida.html" class="agrupItem">
+						<i class="material-icons" title="menu">local_dining</i>
+						Preparar comida
+					</a>
+					<a href="productos_disponibles.html" class="agrupItem">
+						<i class="material-icons" title="menu">done</i>
+						Productos disponibles
+					</a>
+				</div>
+				<span class="agrupItem openSubmenu" data-open="assis">
+					<i class="material-icons" title="menu">list</i>
+					Asistencia
+				</span>
+				<div id="assis" class="subMenu">
+					<a href="editar_personas.html" class="agrupItem">
+						<i class="material-icons" title="menu">mode_edit</i>
+						Editar personal/misioneros
+					</a>
+					<a href="registrar_asistencia.html" class="agrupItem">
+						<i class="material-icons" title="menu">playlist_add_check</i>
+						Registrar asistencia
+					</a>
+					<a href="buscar_asistencia.html" class="agrupItem">
+						<i class="material-icons" title="menu">search</i>
+						Buscar asistencia
+					</a>
+				</div>
+				<span class="agrupItem openSubmenu" data-open="admin">
+					<i class="material-icons" title="menu">update</i>
+					Administracion
+				</span>
+				<div id="admin" class="subMenu">
+					<a href="editar_user.html" class="agrupItem">
+						<i class="material-icons" title="menu">mode_edit</i>
+						Editar usuarios
+					</a>
+					<a href="movimientos.html" class="agrupItem">
+						<i class="material-icons" title="menu">computer</i>
+						Movimientos
+					</a>
+				</div>
+			</div>
+		</div>
+  </div>
+	<div id="oscuroB">
+		
+	</div>
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

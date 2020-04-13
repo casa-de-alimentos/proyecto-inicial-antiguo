@@ -7,13 +7,16 @@
   <title>Panel</title>
   <link rel="stylesheet" href="css/main.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 </head>
 <body>
   <header class="menu">
     <ul>
       <li>
-        <a href="#" id="openDrawer"><i class="material-icons" title="menu">menu</i></a>
+        <a href="#" id="openDrawer">
+					<i class="material-icons" title="menu">menu</i>
+				</a>
       </li>
       <li>
         <a href="index.html"><i class="material-icons" title="salir">exit_to_app</i></a>
@@ -21,36 +24,69 @@
     </ul>
   </header>
   <main class="panelMain">
-    <div class="box">
-      <span class="boxTitle">
-        Suministros mensuales
-      </span>
+		<span class="panelTitle">Entrada de suministros</span>
+    <div class="boxWidthAll">
       <div class="boxContent">
-        contenido
+        <form id="editProducForm" action="#">
+					<div class="input-field col s12">
+						<select name='producto'>
+							<option value="" disabled selected>Seleccione un producto</option>
+							<option value="arina">Arina</option>
+							<option value="azucar">Azúcar</option>
+							<option value="leche">Leche</option>
+							<option value="aceite">Aceite</option>
+						</select>
+						<label>Productos</label>
+					</div>
+					<div class="input-field col s6">
+						<i class="prefix">Kg</i>
+						<input id="number" 
+							type="number" 
+							name="stock"
+						/>
+						<label for="number">Cantidad entregada</label>
+					</div>
+					<button 
+						class="btn waves-effect red lighten-1" 
+						type="submit" 
+						name="enviar"
+					>
+						Agregar
+					</button>
+				</form>
       </div>
     </div>
     <div class="box">
       <span class="boxTitle">
-        Misioneros
+        Últimas entradas de suministros
       </span>
       <div class="boxContent">
-        contenido
-      </div>
-    </div>
-    <div class="box">
-      <span class="boxTitle">
-        Consumo de suministros
-      </span>
-      <div class="boxContent">
-        contenido
-      </div>
-    </div>
-    <div class="box">
-      <span class="boxTitle">
-        Suministros actuales
-      </span>
-      <div class="boxContent">
-        contenido
+        <div id="listProducts">
+					<div class="fila">
+						<span class="item">Arina</span>
+						<span class="green-text">+30Kg</span>
+					</div>
+					
+					<div class="fila">
+						<span class="item">Azúcar</span>
+						<span class="green-text">+12Kg</span>
+					</div>
+					
+					<div class="fila">
+						<span class="item">Azúcar</span>
+						<span class="green-text">+49Kg</span>
+					</div>
+					
+					<div class="fila">
+						<span class="item">Leche</span>
+						<span class="green-text">+9Kg</span>
+					</div>
+					
+					<div class="fila">
+						<span class="item">Aceite</span>
+						<span class="green-text">+30Kg</span>
+					</div>
+				</div>
       </div>
     </div>
   </main>
@@ -59,18 +95,18 @@
     <header class="drawerMenu">
       <i id="closeDrawer" class="material-icons" title="menu">close</i>
     </header>
-		<div class="container">
+		<div class="contenedor">
 			<div class="userInfo">
 				<img src="" alt="" width="70" height="70" />
 				<span>Usuario de prueba</span>
 			</div>
 			<hr/>
 			<div class="menu">
-				<a href="#" class="agrupItem active">
+				<a href="panel.html" class="agrupItem">
 					<i class="material-icons" title="menu">home</i>
 					Inicio
 				</a>
-				<span class="agrupItem openSubmenu" data-open="inv">
+				<span class="agrupItem openSubmenu active" data-open="inv">
 					<i class="material-icons" title="menu">chrome_reader_mode</i>
 					Inventario
 				</span>
@@ -79,15 +115,15 @@
 						<i class="material-icons" title="menu">mode_edit</i>
 						Editar produtos
 					</a>
-					<a class="agrupItem">
+					<a href="#" class="agrupItem active">
 						<i class="material-icons" title="menu">content_paste</i>
 						Entrada de suminsitros
 					</a>
-					<a class="agrupItem">
+					<a href="preparar_comida.html" class="agrupItem">
 						<i class="material-icons" title="menu">local_dining</i>
 						Preparar comida
 					</a>
-					<a class="agrupItem">
+					<a href="productos_disponibles.html" class="agrupItem">
 						<i class="material-icons" title="menu">done</i>
 						Productos disponibles
 					</a>
@@ -97,15 +133,15 @@
 					Asistencia
 				</span>
 				<div id="assis" class="subMenu">
-					<a class="agrupItem">
+					<a href="editar_personas.html" class="agrupItem">
 						<i class="material-icons" title="menu">mode_edit</i>
 						Editar personal/misioneros
 					</a>
-					<a class="agrupItem">
+					<a href="registrar_asistencia.html" class="agrupItem">
 						<i class="material-icons" title="menu">playlist_add_check</i>
 						Registrar asistencia
 					</a>
-					<a class="agrupItem">
+					<a href="buscar_asistencia.html" class="agrupItem">
 						<i class="material-icons" title="menu">search</i>
 						Buscar asistencia
 					</a>
@@ -113,13 +149,13 @@
 				<span class="agrupItem openSubmenu" data-open="admin">
 					<i class="material-icons" title="menu">update</i>
 					Administracion
-				</sapn>
+				</span>
 				<div id="admin" class="subMenu">
-					<a class="agrupItem">
+					<a href="editar_user.html" class="agrupItem">
 						<i class="material-icons" title="menu">mode_edit</i>
 						Editar usuarios
 					</a>
-					<a class="agrupItem">
+					<a href="movimientos.html" class="agrupItem">
 						<i class="material-icons" title="menu">computer</i>
 						Movimientos
 					</a>
@@ -130,7 +166,8 @@
 	<div id="oscuroB">
 		
 	</div>
-  <script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
