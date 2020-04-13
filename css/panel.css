@@ -1,0 +1,28 @@
+.panelMain {
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.box {
+  background: #fff;
+  width: 480px;
+  height: 200px;
+  margin: 10px;
+  border: solid 2px #808080;
+  border-radius: 15px;
+}
+
+.box .boxTitle {
+  display: block;
+  margin: 20px;
+  margin-bottom: 0px;
+  font-size: 20px;
+}
+
+.box .boxContent {
+  margin: 20px;
+  margin-top: 15px;
+}
