@@ -31,12 +31,3 @@
 #editProducForm button {
 	margin-top: 15px;
 }
-
-#listProducts .fila {
-	display: flex;
-	justify-content: space-around;
-	background: rgba(0,0,0,0.1);
-	padding: 5px;
-	margin-bottom: 10px;
-	border-radius: 10px;
-}
