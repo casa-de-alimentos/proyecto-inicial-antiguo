@@ -7,13 +7,16 @@
   <title>Panel</title>
   <link rel="stylesheet" href="css/main.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 </head>
 <body>
   <header class="menu">
     <ul>
       <li>
-        <a href="#" id="openDrawer"><i class="material-icons" title="menu">menu</i></a>
+        <a href="#" id="openDrawer">
+					<i class="material-icons" title="menu">menu</i>
+				</a>
       </li>
       <li>
         <a href="index.html"><i class="material-icons" title="salir">exit_to_app</i></a>
@@ -21,36 +24,43 @@
     </ul>
   </header>
   <main class="panelMain">
-    <div class="box">
-      <span class="boxTitle">
-        Suministros mensuales
-      </span>
+		<span class="panelTitle">Movimientos en el sistema</span>
+    <div class="boxWidthAll">
       <div class="boxContent">
-        Estadística
-      </div>
-    </div>
-    <div class="box">
-      <span class="boxTitle">
-        Misioneros
-      </span>
-      <div class="boxContent">
-        Estadística
-      </div>
-    </div>
-    <div class="box">
-      <span class="boxTitle">
-        Consumo de suministros
-      </span>
-      <div class="boxContent">
-        Estadística
-      </div>
-    </div>
-    <div class="box">
-      <span class="boxTitle">
-        Suministros actuales
-      </span>
-      <div class="boxContent">
-        Estadística
+        <table class="striped centered">
+					<thead>
+						<tr>
+							<th>Usuario</th>
+							<th>Acción</th>
+							<th>Fecha</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr>
+							<td>test1</td>
+							<td>Suministros agregados: 
+								<span class="green-text">+37Kg</span> de Arina</td>
+							<td>00/00/0000 00:00</td>
+						</tr>
+						<tr>
+							<td>test2</td>
+							<td>Suministros agregados: 
+								<span class="green-text">+49Kg</span> de Azúcar</td>
+							<td>00/00/0000 00:00</td>
+						</tr>
+						<tr>
+							<td>test3</td>
+							<td>Persona eliminada: <span class="blue-text">V-28743611</span>
+							<td>00/00/0000 00:00</td>
+						</tr>
+						<tr>
+							<td>test1</td>
+							<td>Usuario agregado: <span class="blue-text">test3</span>
+							<td>00/00/0000 00:00</td>
+						</tr>
+					</tbody>
+				</table>
       </div>
     </div>
   </main>
@@ -66,7 +76,7 @@
 			</div>
 			<hr/>
 			<div class="menu">
-				<a href="#" class="agrupItem active">
+				<a href="panel.html" class="agrupItem">
 					<i class="material-icons" title="menu">home</i>
 					Inicio
 				</a>
@@ -79,7 +89,7 @@
 						<i class="material-icons" title="menu">mode_edit</i>
 						Editar produtos
 					</a>
-					<a href="suministros.html" class="agrupItem">
+					<a href="#" class="agrupItem">
 						<i class="material-icons" title="menu">content_paste</i>
 						Entrada de suminsitros
 					</a>
@@ -97,7 +107,7 @@
 					Asistencia
 				</span>
 				<div id="assis" class="subMenu">
-					<a href="editar_personas" class="agrupItem">
+					<a href="editar_personas.html" class="agrupItem">
 						<i class="material-icons" title="menu">mode_edit</i>
 						Editar empleados/misioneros
 					</a>
@@ -105,12 +115,12 @@
 						<i class="material-icons" title="menu">playlist_add_check</i>
 						Registrar asistencia
 					</a>
-					<a href="buscar_asistencia.html" class="agrupItem">
+					<a href="#" class="agrupItem">
 						<i class="material-icons" title="menu">search</i>
 						Buscar asistencia
 					</a>
 				</div>
-				<span class="agrupItem openSubmenu" data-open="admin">
+				<span class="agrupItem openSubmenu active" data-open="admin">
 					<i class="material-icons" title="menu">update</i>
 					Administracion
 				</span>
@@ -119,7 +129,7 @@
 						<i class="material-icons" title="menu">mode_edit</i>
 						Editar usuarios
 					</a>
-					<a href="movimientos.html" class="agrupItem">
+					<a href="#" class="agrupItem active">
 						<i class="material-icons" title="menu">computer</i>
 						Movimientos
 					</a>
@@ -130,7 +140,8 @@
 	<div id="oscuroB">
 		
 	</div>
-  <script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

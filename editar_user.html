@@ -7,13 +7,16 @@
   <title>Panel</title>
   <link rel="stylesheet" href="css/main.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 </head>
 <body>
   <header class="menu">
     <ul>
       <li>
-        <a href="#" id="openDrawer"><i class="material-icons" title="menu">menu</i></a>
+        <a href="#" id="openDrawer">
+					<i class="material-icons" title="menu">menu</i>
+				</a>
       </li>
       <li>
         <a href="index.html"><i class="material-icons" title="salir">exit_to_app</i></a>
@@ -21,36 +24,72 @@
     </ul>
   </header>
   <main class="panelMain">
-    <div class="box">
-      <span class="boxTitle">
-        Suministros mensuales
-      </span>
+		<span class="panelTitle">Editar Usuarios</span>
+    <div class="boxWidthAll">
       <div class="boxContent">
-        Estadística
-      </div>
-    </div>
-    <div class="box">
-      <span class="boxTitle">
-        Misioneros
-      </span>
-      <div class="boxContent">
-        Estadística
-      </div>
-    </div>
-    <div class="box">
-      <span class="boxTitle">
-        Consumo de suministros
-      </span>
-      <div class="boxContent">
-        Estadística
-      </div>
-    </div>
-    <div class="box">
-      <span class="boxTitle">
-        Suministros actuales
-      </span>
-      <div class="boxContent">
-        Estadística
+        <form id="editProducForm" action="#">
+					<div class="option">
+						<p>
+							<label>
+								<input name="option" class="with-gap" type="radio" value="add" />
+								<span>Añadir</span>
+							</label>
+						</p>
+						<p>
+							<label>
+								<input name="option" class="with-gap" type="radio" value="modify" />
+								<span>Modificar</span>
+							</label>
+						</p>
+						<p>
+							<label>
+								<input name="option" class="with-gap" type="radio" value="delete" />
+								<span>Eliminar</span>
+							</label>
+						</p>
+					</div>
+					<div class="option">
+						<p>
+							<label>
+								<input name="personal" class="with-gap" type="radio" value="M" />
+								<span>Administrador</span>
+							</label>
+						</p>
+						<p>
+							<label>
+								<input name="personal" class="with-gap" type="radio" value="E" />
+								<span>Ayudante</span>
+							</label>
+						</p>
+					</div>
+					<div class="inputs">
+						<div class="input-field col s6">
+							<input id="cedula" type="text" name="id" />
+							<label for="cedula">Usuario</label>
+						</div>
+						<div class="input-field col s6">
+							<input id="name" 
+								type="password" 
+								name="name"
+							/>
+							<label for="name">Contraseña</label>
+						</div>
+					</div>
+					<div>
+						<div class="input-field col s6">
+							<input id="nacimiento" 
+								type="text" 
+								name="stock"
+							/>
+							<label for="nacimiento">Teléfono</label>
+						</div>
+					</div>
+					<button 
+						class="btn waves-effect red lighten-1" type="submit" name="action"
+					>
+						Editar
+					</button>
+				</form>
       </div>
     </div>
   </main>
@@ -66,7 +105,7 @@
 			</div>
 			<hr/>
 			<div class="menu">
-				<a href="#" class="agrupItem active">
+				<a href="panel.html" class="agrupItem">
 					<i class="material-icons" title="menu">home</i>
 					Inicio
 				</a>
@@ -97,7 +136,7 @@
 					Asistencia
 				</span>
 				<div id="assis" class="subMenu">
-					<a href="editar_personas" class="agrupItem">
+					<a href="editar_personas.html" class="agrupItem">
 						<i class="material-icons" title="menu">mode_edit</i>
 						Editar empleados/misioneros
 					</a>
@@ -110,12 +149,12 @@
 						Buscar asistencia
 					</a>
 				</div>
-				<span class="agrupItem openSubmenu" data-open="admin">
+				<span class="agrupItem openSubmenu active" data-open="admin">
 					<i class="material-icons" title="menu">update</i>
 					Administracion
 				</span>
 				<div id="admin" class="subMenu">
-					<a href="editar_user.html" class="agrupItem">
+					<a href="#" class="agrupItem active">
 						<i class="material-icons" title="menu">mode_edit</i>
 						Editar usuarios
 					</a>
@@ -130,7 +169,8 @@
 	<div id="oscuroB">
 		
 	</div>
-  <script src="js/jquery-3.4.1.min.js"></script>
+	<script src="js/jquery-3.4.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
