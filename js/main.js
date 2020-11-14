@@ -6,66 +6,68 @@ $(document).ready(function(){
 //Iniciar datePicker
  document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.datepicker');
-    var instances = M.Datepicker.init(elems, {i18n: 
-			{
-				cancel: 'Cancelar',
-				months: [
-					'Enero',
-					'Febrero',
-					'Marzo',
-					'Abril',
-					'Mayo',
-					'Junio',
-					'Julio',
-					'Agosto',
-					'Septiembre',
-					'Octubre',
-					'Noviembre',
-					'Diciembre'
-				],
-				monthsShort: [
-					'Ene',
-					'Feb',
-					'Mar',
-					'Abr',
-					'May',
-					'Jun',
-					'Jul',
-					'Ago',
-					'Sep',
-					'Oct',
-					'Nov',
-					'Dic'
-				],
-				weekdays: [
-					'Lunes',
-					'Martes',
-					'Miércoles',
-					'Jueves',
-					'Viernes',
-					'Sábado',
-					'Domingo'
-				],
-				weekdaysShort: [
-					'Lun',
-					'Mar',
-					'Mier',
-					'Jue',
-					'Vie',
-					'Sab',
-					'Dom'
-				],
-				weekdaysAbbrev: [
-					'L',
-					'M',
-					'Mi',
-					'J',
-					'V',
-					'S',
-					'D'
-				]
+    var instances = M.Datepicker.init(elems, 
+    	{
+    		i18n: {
+					cancel: 'Cancelar',
+					months: [
+						'Enero',
+						'Febrero',
+						'Marzo',
+						'Abril',
+						'Mayo',
+						'Junio',
+						'Julio',
+						'Agosto',
+						'Septiembre',
+						'Octubre',
+						'Noviembre',
+						'Diciembre'
+					],
+					monthsShort: [
+						'Ene',
+						'Feb',
+						'Mar',
+						'Abr',
+						'May',
+						'Jun',
+						'Jul',
+						'Ago',
+						'Sep',
+						'Oct',
+						'Nov',
+						'Dic'
+					],
+					weekdays: [
+						'Lunes',
+						'Martes',
+						'Miércoles',
+						'Jueves',
+						'Viernes',
+						'Sábado',
+						'Domingo'
+					],
+					weekdaysShort: [
+						'Lun',
+						'Mar',
+						'Mier',
+						'Jue',
+						'Vie',
+						'Sab',
+						'Dom'
+					],
+					weekdaysAbbrev: [
+						'L',
+						'M',
+						'Mi',
+						'J',
+						'V',
+						'S',
+						'D'
+					]
+				}
 			}
-		});
+		);
   });
 
 

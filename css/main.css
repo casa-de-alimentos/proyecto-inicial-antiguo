@@ -211,3 +211,37 @@ main {
 	display: none;
 	margin-left: 30px;
 }
+
+/* StatusBox */
+.statusBox {
+	display: flex;
+	margin: 10px;
+	justify-content: center;
+}
+
+.statusBox__message {
+	background: #e53935;
+	padding: 10px;
+	background: red;
+	min-width: 500px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: white;
+}
+
+.statusBox__close {
+	cursor: pointer;
+}
+
+.error {
+	background: #e53935;
+}
+
+.warning {
+	background: #f9a825;
+}
+
+.success {
+	background: #00897b;
+}
