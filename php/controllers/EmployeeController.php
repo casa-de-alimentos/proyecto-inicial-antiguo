@@ -88,7 +88,7 @@ class EmployeeController
 		//Añadir empleado
 		$date = (new DateTime($fecha))->format('Y-m-d');
 		$user = $_SESSION['user_id'];
-		$sql="INSERT INTO employees (cedula, nombre, apellido, sexo, nacimiento, telefono, created_by) VALUES ('$cedula', '$nombre', '$apellido', '$sexo', '$date', '$telef', '$user')";
+		$sql="INSERT INTO employees (cedula, nombre, apellido, sexo, nacimiento, telefono, created_by) VALUES ('$cedula', '$nombre', '$apellido', '$sexo', '$date', '$telefono', '$user')";
 		
 		$res=mysqli_query($conection,$sql);
 

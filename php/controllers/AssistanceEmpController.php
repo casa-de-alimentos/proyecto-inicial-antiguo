@@ -41,7 +41,7 @@ class AssistanceEmpController
 		
 		$dataAsis = array();
 		while($data=mysqli_fetch_assoc($res)) {
-			array_push($dataAsis, $data['date']);
+			array_push($dataAsis, array($data['date'], $data['id']));
 		}
 		
 		$MasterArray = array($dataPeople, $dataAsis);
@@ -115,6 +115,20 @@ class AssistanceEmpController
 		$_SESSION['statusBox_message'] = 'Asistencia añadida';
 		$this->addLog('Asistencia del empleado '.$dataUsed['nombre']);
 		header('location: registrar_asistencia.php');
+	}
+	
+	public function delete($id, $cedula)
+	{
+		///Consulta
+		$db = new DB();
+		$conection = $db->conectar();
+		
+		$sql="DELETE FROM assistance_emp WHERE id='$id'";
+		$res=mysqli_query($conection,$sql);
+		
+		$_SESSION['statusBox'] = 'success';
+		$_SESSION['statusBox_message'] = 'Asistencia eliminada';
+		header('location: buscar_asistencia.php?action&search='.$cedula);
 	}
 	
 	static public function counts()

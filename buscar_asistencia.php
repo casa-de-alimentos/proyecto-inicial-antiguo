@@ -36,6 +36,17 @@
 			$dataSearch = $controller2->search();
 		}
 	}
+
+	if (isset($delete)) {
+		$controller = new AssistanceBenController();
+		$controller2 = new AssistanceEmpController();
+		
+		if ($people === 'ben') {
+			$controller->delete($delete, $delete_user);
+		}else if ($people === 'emp') {
+			$controller2->delete($delete, $delete_user);
+		}
+	}
 ?>
 <html lang="en">
 <head>
@@ -200,14 +211,14 @@
 							<thead>
 								<tr>
 									<th>Día</th>
-									<th>Estado</th>
+									<th>Opciones</th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php foreach($dataSearch[1] as $date): ?>
+								<?php foreach($dataSearch[1] as $assis): ?>
 								<tr>
-									<td><?php echo $date ?></td>
-									<td>Asistido</td>
+									<td><?php echo $assis[0] ?></td>
+									<td><a href="buscar_asistencia.php?delete=<?php echo $assis[1] ?>&people=<?php echo isset($dataSearch[0]['seguimiento']) ? 'ben' : 'emp' ?>&delete_user=<?php echo $dataSearch[0]['cedula'] ?>" class="waves-effect red darken-1 btn-small">Borrar</a></td>
 								</tr>
 								<?php endforeach ?>
 							</tbody>
