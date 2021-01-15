@@ -137,6 +137,7 @@ class AssistanceBenController
 			ORDER BY year, mes";
 		
 		$res=mysqli_query($conection,$sql);
+		$request = [];
 		while($data=mysqli_fetch_assoc($res)){
 			$data['mes'] = ucfirst($data['mes']);
 			$request[] = $data;
