@@ -6,6 +6,7 @@
 
 	//Init session
 	session_start();
+	require('php/controllers/StartController.php');
 
 	if (isset($_SESSION['auth']) && $_SESSION['auth']) {
 		header('location: panel.php');

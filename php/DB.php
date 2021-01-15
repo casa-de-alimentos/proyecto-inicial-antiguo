@@ -5,7 +5,7 @@ class DB
   
   public function conectar()
   {
-    $this->db = new mysqli('localhost', 'root', '1234', 'proyecto') or die 
+    $this->db = new mysqli('localhost', 'root', '1234', 'casa_alimentacion') or die 
     ('No conectado');
 		
 		$this->db->set_charset("utf8");
