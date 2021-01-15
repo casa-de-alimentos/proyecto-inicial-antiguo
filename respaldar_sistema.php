@@ -22,9 +22,6 @@
 		unset($_SESSION['statusBox']);
 		unset($_SESSION['statusBox_message']);
 	}
-
-	//Datos de la tabla
-	$data_table = $controller->index();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,31 +42,49 @@
 	<main class='container'>
 		<div class="row">
 			<div class='col s12'>
-				<h5>Movimientos del sistema</h5>
+				<h5>Respaldar sistema</h5>
 			</div>
 			<div class='col s12'>
 				<div class="card">
 					<div class="card-content">
-						<table id='table_compact'>
-							<thead>
-								<tr>
-									<th>Fecha</th>
-									<th>Cuenta</th>
-									<th>Acción</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php if (!empty($data_table)): ?>
-								<?php foreach($data_table as $log): ?>
-								<tr>
-									<td><?php echo $log['date'] ?></td>
-									<td><?php echo $log['action'] ?></td>
-									<td><?php echo isset($log['name']) ? $log['name'] : 'Cuenta eliminada' ?></td>
-								</tr>
-								<?php endforeach ?>
-								<?php endif ?>
-							</tbody>
-						</table>
+						<span class="card-title">Realizar backup</span>
+						<div class='row'>
+							<div class='col s12 center-align'>
+								<a 
+									href='backup.php' class="btn waves-effect red lighten-1"
+								>
+									Realizar y descargar backup
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class='col s12'>
+				<div class="card">
+					<div class="card-content">
+						<span class="card-title">Restaurar sistema</span>
+						<form method="post" action="restore.php" enctype="multipart/form-data">
+							<div class='row'>
+								<div class="file-field input-field col s12">
+									<div class="btn red lighten-1">
+										<span>File</span>
+										<input type="file" name='backup_file'>
+									</div>
+									<div class="file-path-wrapper">
+										<input class="file-path validate" type="text">
+									</div>
+								</div>
+								<div class='col s12 center-align'>
+									<button
+										type='submit' class="btn waves-effect red lighten-1"
+									>
+										Restaurar sistema
+									</button>
+								</div>
+						</form>
+						</div>
 					</div>
 				</div>
 			</div>

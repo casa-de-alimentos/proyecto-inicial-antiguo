@@ -1,224 +1,234 @@
-<?
-include 'php/controlador.php';
-include 'php/class/Beneficiario.php';
-include 'php/class/Empleados.php';
-include 'php/class/Asistencias.php';
-//Init session
-session_start();
+<?php
+	require 'php/DB.php';
+	require 'php/controllers/loginController.php';
+	require 'php/controllers/BeneficiaryController.php';
+	require 'php/controllers/EmployeeController.php';
+	require 'php/controllers/AssistanceBenController.php';
+	require 'php/controllers/AssistanceEmpController.php';
+	
+	//Init session
+	session_start();
 
-$controller1 = new Beneficiario();
-$controller2 = new Empleados();
-$asistencias = new Asistencias();
-
-extract($_REQUEST);
-
-//StatusBox
-if(isset($_SESSION['statusBox']) && !empty($_SESSION['statusBox'])) {
-	$statusBox = $_SESSION['statusBox'];
-	$message = $_SESSION['message'];
-	$color = $_SESSION['color'];
-}
-
-//Verify login
-if (!$_SESSION['auth']) {
-	header('location: index.php');
-}
-
-//Search User
-if (isset($search)) {
-	$userFoundBen = $controller1->SearchBen();
-
-	if (!$userFoundBen) {
-		$userFoundEmp = $controller2->SearchEmp();
+	//Verify login
+	if (!$_SESSION['auth']) {
+		header('location: index.php');
 	}
 
 	//StatusBox
-	if(isset($_SESSION['statusBox']) && !empty($_SESSION['statusBox'])) {
-		$statusBox = $_SESSION['statusBox'];
-		$message = $_SESSION['message'];
-		$color = $_SESSION['color'];
+	if(isset($_SESSION['statusBox'])) {
+		$dataStatus = array(
+			'message' => $_SESSION['statusBox_message'],
+			'status' => $_SESSION['statusBox'],
+		);
+		
+		unset($_SESSION['statusBox']);
+		unset($_SESSION['statusBox_message']);
 	}
-}
 
-if (isset($reg)){
-	if ($regIn === 'ben') {
-		$asistencias->RegisterAsisB();
-	}else if ($regIn === 'emp') {
-		$asistencias->RegisterAsisP();
+	//Form
+	if (isset($action)) {
+		$controller = new BeneficiaryController();
+		$controller2 = new EmployeeController();
+		
+		$dataPeople = $controller->show();
+		
+		if ($dataPeople === null) {
+			$dataPeople = $controller2->show();
+		}
 	}
-}
+
+	if (isset($reg)) {
+		$controller = new AssistanceBenController();
+		$controller2 = new AssistanceEmpController();
+		
+		if ($regIn === 'ben') {
+			$controller->create($reg, $peso);
+		}else if ($regIn === 'emp') {
+			$controller2->create($reg);
+		}
+	}
 ?>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<title>Panel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Panel</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" href="css/main.css" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  
-  <? require 'Header.php'; ?>
-
-  <main class="panelMain">
-		<span class="panelTitle">Registrar asistencia</span>
-    <div class="boxWidthAll">
-      <div class="boxContent">
-        <form id="editProducForm" action="">
-        	<? if (isset($statusBox)) { ?>
-			    	<div class="col s12 statusBox">
-							<div class="statusBox__message <? echo $color ?>">
-								<span><? echo $message ?></span>
-								 <i class="material-icons statusBox__close">close</i>
-							</div>
-						</div>
-					<? 
-					unset($_SESSION['statusBox']);
-					unset($_SESSION['status']);
-					unset($_SESSION['color']);
-					} ?>
-					<div class="input-field col s6">
-						<i class="prefix material-icons">search</i>
-						<input id="search" 
-							type="text" 
-							name="search"
-						/>
-						<label for="search">Buscar cédula</label>
-					</div>
-					<button 
-						class="btn waves-effect red lighten-1" 
-						type="submit"
-					>
-						Buscar
-					</button>
-				</form>
-      </div>
-    </div>
-    <div class="boxWidthAll">
-      <span class="boxTitle">
-      	Datos de la persona
-      </span>
-      <div class="boxContent">
-        <table class="striped centered">
-					<thead>
-						<tr>
-							<?php if (isset($userFoundBen) && $userFoundBen): ?>
-							<th>Cédula</th>
-							<th>Nombres</th>
-							<th>Apellidos</th>
-							<th>Sexo</th>
-							<th>Nacimiento</th>
-							<th>Peso</th>
-							<th>Registrado por</th>
-							<th>Seguimiento de peso</th>	
-							<?php elseif (isset($userFoundEmp) && $userFoundEmp): ?>
-							<th>Cédula</th>
-							<th>Nombres</th>
-							<th>Apellidos</th>
-							<th>Sexo</th>
-							<th>Nacimiento</th>
-							<th>teléfono</th>
-							<th>Registrado por</th>
-							<?php endif ?>
-						</tr>
-					</thead>
-
-					<tbody>
-						<? 
-						if (!empty($userFoundBen)) {
-						?>
-							<tr>
-								<td><? echo $userFoundBen['ben_cedula'] ?></td>
-								<td><? echo $userFoundBen['ben_nombres'] ?></td>
-								<td><? echo $userFoundBen['ben_apellidos'] ?></td>
-								<td><? 
-									if ($userFoundBen['ben_sexo']==='M') {
-										echo 'Masculino';
-									}else {
-										echo 'Femenino';
-									}
-								?></td>
-								<td><? echo $userFoundBen['ben_nacimiento'] ?></td>
-								<td><? 
-									if (empty($userFoundBen['ben_peso'])) {
-										echo 'No registrado';
-									}else {
-										echo $userFoundBen['ben_peso'].'Kg';
-									}
-								?></td>
-								<td><? echo $userFoundBen['ben_created_by'] ?></td>
-								<td><? 
-									if ($userFoundBen['ben_seguimiento']) {
-										echo 'activo';
-									}else {
-										echo 'desactivado';
-									}
-								?></td>
-							</tr>
-							<tr>
-							<td colspan="8">
-								<?php if ($userFoundBen['ben_seguimiento']): ?>
-								<div class="input-field col s1">
-									<i class="prefix">Kg</i>
+	<?php require('php/componets/HeaderAuth.php') ?>
+	
+	<main class='container'>
+		<div class="row">
+			<div class='col s12'>
+				<h5>Registrar asistencia</h5>
+			</div>
+			
+			<div class="col s12">
+				<div class="card">
+					<div class="card-content">
+						<form class='formProducts' method="POST" action="#" autocomplete='off'>
+							<div class='row' style='width: 100%'>
+								<div class="input-field col s12">
+									<i class="prefix material-icons">search</i>
 									<input id="search" 
-										type="number" 
-										name="newPeso"
-										step="0.1" 
+										type="text" 
+										name="search"
 									/>
-									<label for="search">Nuevo peso</label>
+									<label for="search">Buscar cédula de empleado/beneficiario</label>
 								</div>
+								<div class='col s12 center-align'>
+									<button 
+										class="btn waves-effect red lighten-1" type="submit" name="action"
+									>
+										Buscar
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col s12">
+				<div class="card">
+					<div class="card-content">
+						<span class="card-title">Datos de la persona</span>
+						<?php if (!empty($dataPeople)): ?>
+						<table class="striped centered">
+							<thead>
+								<tr>
+									<?php if (isset($dataPeople['seguimiento'])): ?>
+									<th>Cédula</th>
+									<th>Nombres</th>
+									<th>Apellidos</th>
+									<th>Sexo</th>
+									<th>Nacimiento</th>
+									<th>Peso</th>
+									<th>Registrado por</th>
+									<th>Seguimiento de peso</th>	
+									<?php elseif (isset($dataPeople['telefono'])): ?>
+									<th>Cédula</th>
+									<th>Nombres</th>
+									<th>Apellidos</th>
+									<th>Sexo</th>
+									<th>Nacimiento</th>
+									<th>teléfono</th>
+									<th>Registrado por</th>
+									<?php endif ?>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if (isset($dataPeople['seguimiento'])): ?>
+								<tr>
+									<td><?php echo $dataPeople['cedula'] ?></td>
+									<td><?php echo $dataPeople['nombre'] ?></td>
+									<td><?php echo $dataPeople['apellido'] ?></td>
+									<td><?php
+										if ($dataPeople['sexo']==='M') {
+											echo 'Masculino';
+										}else {
+											echo 'Femenino';
+										}
+									?></td>
+									<td><?php echo $dataPeople['nacimiento'] ?></td>
+									<td><?php 
+										if (empty($dataPeople['peso'])) {
+											echo 'No registrado';
+										}else {
+											echo $dataPeople['peso'].'Kg';
+										}
+									?></td>
+									<td><?php 
+										if ($dataPeople['name']) {
+											echo $dataPeople['name'];
+										}else {
+											echo 'Cuenta eliminada';
+										}
+									?></td>
+									<td><?php
+										if ($dataPeople['seguimiento']) {
+											echo 'activo';
+										}else {
+											echo 'desactivado';
+										}
+									?></td>
+								</tr>
+								<tr>
+									<td colspan="8">
+										<form action="registrar_asistencia.php">
+										<input type='hidden' name='reg' value='<?php echo $dataPeople['people_id'] ?>' />
+										<input type='hidden' name='regIn' value='ben' />
+										<?php if ($dataPeople['seguimiento']): ?>
+										<div class="input-field col s12">
+											<input id="search" 
+												type="number" 
+												name="peso"
+												step="0.1" 
+											/>
+											<label for="search">Nuevo peso</label>
+										</div>
+										<?php endif ?>
+										<button
+											class="btn waves-effect red lighten-1" 
+										>
+											Registrar asistencia
+										</button>
+										</form>
+									</td>
+								</tr>
+								<?php elseif (isset($dataPeople['telefono'])): ?>
+								<tr>
+									<td><?php echo $dataPeople['cedula'] ?></td>
+									<td><?php echo $dataPeople['nombre'] ?></td>
+									<td><?php echo $dataPeople['apellido'] ?></td>
+									<td><?php
+										if ($dataPeople['sexo']==='M') {
+											echo 'Masculino';
+										}else {
+											echo 'Femenino';
+										}
+									?></td>
+									<td><?php echo $dataPeople['nacimiento'] ?></td>
+									<td><?php 
+										if (!empty($dataPeople['telefono'])) {
+											echo $dataPeople['telefono'];
+										}else {
+											echo 'No registrado';
+										}
+									?></td>
+									<td><?php echo $dataPeople['name'] ?></td>
+								</tr>
+								<tr>
+									<td colspan="8">
+										<a 
+											href="registrar_asistencia.php?reg=<?php echo $dataPeople['people_id'] ?>&regIn=emp" 
+											class="btn waves-effect red lighten-1" 
+										>
+											Registrar asistencia
+										</a>
+									</td>
+								</tr>
 								<?php endif ?>
-								<a 
-									href="registrar_asistencia.php?reg=<? echo $userFoundBen['ben_cedula'] ?>&regIn=ben" 
-									class="btn waves-effect red lighten-1" 
-								>
-									Registrar asistencia
-								</a>
-							</td>
-						<? 
-						} else if (!empty($userFoundEmp)) {
-						?>
-						<tr>
-							<td><? echo $userFoundEmp['emp_cedula'] ?></td>
-							<td><? echo $userFoundEmp['emp_nombres'] ?></td>
-							<td><? echo $userFoundEmp['emp_apellidos'] ?></td>
-							<td><? echo $userFoundEmp['emp_sexo'] ?></td>
-							<td><? echo $userFoundEmp['emp_nacimiento'] ?></td>
-							<td><? echo $userFoundEmp['emp_telef'] ?></td>
-							<td><? echo $userFoundEmp['emp_created_by'] ?></td>
-						</tr>
-						<tr>
-							<td colspan="8">
-								<a 
-									href="registrar_asistencia.php?reg=<? echo $userFoundEmp['emp_cedula'] ?>&regIn=emp" 
-									class="btn waves-effect red lighten-1" 
-								>
-									Registrar asistencia
-								</a>
-							</td>
-						</tr>
-						<?
-						}
-						?>
-					</tbody>
-				</table>
-      </div>
-    </div>
-  </main>
-
-  <? require 'Drawer.php'; ?>
-
-	<div id="oscuroB">
+							</tbody>
+						</table>
+						<?php endif ?>
+					</div>
+				</div>
+			</div>
+			
+		</div>
 		
-	</div>
+		<input type='hidden' id='js_statusBox' value='<?php echo json_encode($dataStatus) ?>' />
+	</main>
+	
 	<script src="js/jquery-3.4.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/statusBox.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/statusBox.js"></script>
 </body>
 </html>

@@ -1,140 +1,148 @@
-<?
-include 'php/class/Products.php';
-include 'php/class/Almacen.php';
+<?php
+	require 'php/DB.php';
+	require 'php/controllers/loginController.php';
+	require 'php/controllers/productController.php';
+	require 'php/controllers/storageController.php';
 
-//Init session
-session_start();
-extract($_REQUEST);
+	$controllerProductos = new ProductController();
+	$controllerStorage = new StorageController();
 
-//StatusBox
-if(isset($_SESSION['statusBox'])) {
-	$statusBox = $_SESSION['statusBox'];
-	$message = $_SESSION['message'];
-	$color = $_SESSION['color'];
-}
+	//Init session
+	session_start();
+	extract($_REQUEST);
 
-//Verify login
-if (!$_SESSION['auth']) {
-	header('location: index.php');
-}
+	//Verify login
+	if (!$_SESSION['auth']) {
+		header('location: index.php');
+	}
 
-$controller = new Almacen();
-//Form
-if (isset($action)) {
-	$controller->AddConsume();
-}
+	//StatusBox
+	if(isset($_SESSION['statusBox'])) {
+		$dataStatus = array(
+			'message' => $_SESSION['statusBox_message'],
+			'status' => $_SESSION['statusBox'],
+		);
+		
+		unset($_SESSION['statusBox']);
+		unset($_SESSION['statusBox_message']);
+	}
 
-$dataProdA = Productos::getProductsList();
-$dataMov = Almacen::getLastLogs('all');
+	//Datos de la página
+	$data_productos = $controllerProductos->index();
+	$data_storage = $controllerStorage->index('all');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8">
+	<title>Panel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Panel</title>
-  <link rel="stylesheet" href="css/main.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" href="css/main.css" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <? require 'Header.php'; ?>
-  
-  <main class="panelMain">
-		<span class="panelTitle">Productos disponibles</span>
-   <div class="box">
-      <span class="boxTitle">
-        Suministros actuales
-      </span>
-      <div class="boxContent">
-         <table class="striped centered">
-					<thead>
-						<tr>
-							<th>Producto</th>
-							<th>Disponibles</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<? 
-						if (!empty($dataProdA)) {
-							foreach ($dataProdA as $product) { ?>
+	<?php require('php/componets/HeaderAuth.php') ?>
+	
+	<main class='container'>
+		<div class="row">
+			<div class='col s12'>
+				<h5>Productos disponibles</h5>
+			</div>
+			
+			<div class='col s12 m6'>
+				<div class="card">
+					<div class="card-content">
+						<span class='card-title'>Suministros actuales</span>
+						<table class="centered">
+							<thead>
+								<tr>
+									<th>Producto</th>
+									<th>Disponibles</th>
+								</tr>
+							</thead>
+							
+							<tbody>
+						<?php 
+						if (!empty($data_productos)) {
+							foreach ($data_productos as $product) { ?>
 							<tr>
-								<td><? echo $product['prod_name'] ?></td>
+								<td><?php echo $product['name'] ?></td>
 								<td>
-									<?
-										if ($product['prod_stock'] > 20) {
+									<?php
+										if ($product['stock'] > 20) {
 											$colorText = 'blue-text';
-										}else if ($product['prod_stock'] > 6) {
+										}else if ($product['stock'] > 7) {
 											$colorText = 'yellow-text text-darken-3';
 										}else {
 											$colorText = 'red-text';
 										}
 									?>
-									<span class="<? echo $colorText ?>"><? echo $product['prod_stock'].$product['prod_medida']; ?></span>
+									<span class="<?php echo $colorText ?>"><?php echo $product['stock'].$product['medida']; ?></span>
 								</td>
 							</tr>
-						<? } 
+						<?php } 
 						} ?>
 					</tbody>
-				</table>
-      </div>
-    </div>
-    <div class="box">
-      <span class="boxTitle">
-        Movimiento de suministros
-      </span>
-      <div class="boxContent">
-         <table class="striped centered">
-					<thead>
-						<tr>
-							<th>Producto</th>
-							<th>Movimientos</th>
-							<th>Fecha</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<? 
-						if (!empty($dataMov)) {
-							foreach ($dataMov as $movimientos) { ?>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div class='col s12 m6'>
+				<div class="card">
+					<div class="card-content">
+						<span class='card-title'>Movimiento de suministros</span>
+						<table class="centered">
+							<thead>
 								<tr>
-									<td><? echo $movimientos['prod_name'] ?></td>
-									<td>
-										<?
-											if ($movimientos['alm_action'] === 'added') {
-												$colorText = 'green-text';
-												$text = '+'.$movimientos['alm_stock'].$movimientos['prod_medida'];
-											}else {
-												$colorText = 'red-text';
-												$text = '-'.$movimientos['alm_stock'].$movimientos['prod_medida'];
-											}
-										?>
-										<span class="<? echo $colorText ?>"><? echo $text ?></span>
-									</td>
-									<td>
-										<? echo $movimientos['alm_date'] ?>
-									</td>
+									<th>Producto</th>
+									<th>Movimientos</th>
+									<th>Fecha</th>
 								</tr>
-						<?	} 
-							}
-						?>
-					</tbody>
-				</table>
-      </div>
-    </div>
-  </main>
-
-  <? require 'Drawer.php'; ?>
-
-	<div id="oscuroB">
+							</thead>
+							
+							<tbody>
+								<?php
+								if (!empty($data_storage)) {
+									foreach ($data_storage as $storage) { ?>
+										<tr>
+											<td><?php echo $storage['name'] ?></td>
+											<td>
+												<?php
+													if ($storage['action'] === 'added') {
+														$colorText = 'green-text';
+														$text = '+'.$storage['stock'].$storage['medida'];
+													}else {
+														$colorText = 'red-text';
+														$text = '-'.$storage['stock'].$storage['medida'];
+													}
+												?>
+												<span class="<?php echo $colorText ?>"><?php echo $text ?></span>
+											</td>
+											<td>
+												<?php echo $storage['date'] ?>
+											</td>
+										</tr>
+								<?php	} 
+									}
+								?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+		</div>
 		
-	</div>
+		<input type='hidden' id='js_statusBox' value='<?php echo json_encode($dataStatus) ?>' />
+	</main>
+	
 	<script src="js/jquery-3.4.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src='js/statusBox.js'></script>
 </body>
 </html>

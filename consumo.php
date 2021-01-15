@@ -29,10 +29,10 @@
 
 	//Datos de la página
 	$data_productos = $controllerProductos->index();
-	$data_table = $controllerStorage->index();
+	$data_table = $controllerStorage->index('removed');
 
 	if (isset($action)) {
-		$controllerStorage->create();
+		$controllerStorage->create('removed');
 	}
 ?>
 <!DOCTYPE html>
@@ -53,7 +53,7 @@
 	<main class='container'>
 		<div class="row">
 			<div class='col s12'>
-				<h5>Entrada de suministros</h5>
+				<h5>Consumo de suministros</h5>
 			</div>
 			<div class='col s6'>
 				<div class="card">
@@ -78,14 +78,14 @@
 										name="stock"
 										step=".01"
 									/>
-									<label for="number">Cantidad entregada</label>
+									<label for="number">Cantidad consumida</label>
 								</div>
 								
 								<div class='col s12 center-align'>
 									<button 
 										class="btn waves-effect red lighten-1" type="submit" name="action"
 									>
-										Agregar
+										Descontar
 									</button>
 								</div>
 								
@@ -98,12 +98,12 @@
 			<div class='col s6'>
 				<div class="card">
 					<div class="card-content">
-						<span class='card-title'>Últimas entradas de suministros</span>
+						<span class='card-title'>Últimos gastos de suministros</span>
 						<table class="centered">
 							<thead>
 								<tr>
 									<th>Producto</th>
-									<th>Entrega</th>
+									<th>Consumo</th>
 									<th>Fecha</th>
 								</tr>
 							</thead>
@@ -116,7 +116,7 @@
 									<tr>
 										<td><?php echo $storage['name'] ?></td>
 										<td>
-											<span class="green-text">+<?php echo $storage['stock'].$storage['medida']; ?></span>
+											<span class="red-text">-<?php echo $storage['stock'].$storage['medida']; ?></span>
 										</td>
 										<td>
 											<?php echo $storage['date'] ?>

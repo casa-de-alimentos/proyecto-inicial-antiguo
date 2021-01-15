@@ -1,39 +1,21 @@
-.indexMain {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-bottom: 30px;
+.form__input {
+	display: flex;
+	justify-content: center;
 }
 
-.formIndex {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.remember {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-#user, #pass {
-  width: 290px;
+#username, #pass {
   height: 40px;
   border-radius: 10px;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 20px;
+	width: 400px;
+	max-width: 400px;
 }
 
 #remember {
   margin-right: 10px;
 }
 
-button.login {
+.form__login {
+	margin-top: 20px;
   width: 100px;
   height:30px;
 }

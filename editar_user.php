@@ -1,12 +1,10 @@
 <?php
 	require 'php/DB.php';
 	require 'php/controllers/loginController.php';
-	require 'php/controllers/productController.php';
-	require 'php/controllers/storageController.php';
+	require 'php/controllers/UserController.php';
 
-	$controllerProductos = new ProductController();
-	$controllerStorage = new StorageController();
-
+	$controller = new UserController();
+	
 	//Init session
 	session_start();
 	extract($_REQUEST);
@@ -27,12 +25,35 @@
 		unset($_SESSION['statusBox_message']);
 	}
 
-	//Datos de la página
-	$data_productos = $controllerProductos->index();
-	$data_table = $controllerStorage->index();
+	//Datos de la tabla
+	$data_table = $controller->index();
 
+	//Verify edit
+	if (isset($edit)) {
+		$idUser = $edit;
+		foreach ($data_table as $user) {
+			if ($user['id'] === $idUser) {
+				$userUsername = $user['username'];
+				$userName = $user['name'];
+			}
+		}
+	}else {
+		$idUser = "";
+		$userUsername = "";
+		$userName = "";
+	}
+
+	//Verify form
 	if (isset($action)) {
-		$controllerStorage->create();
+		if ($idUser === '') {
+			$controller->create();
+		}else {
+			$controller->edit();
+		}
+	}
+
+	if (isset($delete)) {
+		$controller->delete($delete);
 	}
 ?>
 <!DOCTYPE html>
@@ -53,39 +74,46 @@
 	<main class='container'>
 		<div class="row">
 			<div class='col s12'>
-				<h5>Entrada de suministros</h5>
+				<h5>Editar usuarios</h5>
 			</div>
-			<div class='col s6'>
+			<div class='col s12'>
 				<div class="card">
 					<div class="card-content">
 						<form class='formProducts' method="POST" action="#" autocomplete='off'>
 							<div class='row' style='width: 100%'>
-								<div class="input-field col s12">
-									<select name='producto'>
-										<option value="" disabled selected>Seleccione un producto</option>
-										<?php if (!empty($data_productos)) {
-											foreach ($data_productos as $product) { ?>
-											<option value="<?php echo $product['id'] ?>"><?php echo $product['name'] ?></option>
-										<?php }
-										} ?>
-									</select>
-									<label>Productos</label>
+								<input type="hidden" name="id" value="<?php echo $idUser ?>" />
+								<div class="input-field col s12 m6">
+									<input id="usernames" 
+										type="text" 
+										name="username"
+										value="<?php echo $userUsername ?>"
+										<?php echo $idUser ? 'disabled' : null ?>
+									/>
+									<label for="name">Usuario</label>
 								</div>
 								
-								<div class="input-field col s12">
-									<input id="number" 
-										type="number" 
-										name="stock"
-										step=".01"
+								<div class="input-field col s12 m6">
+									<input id="name" 
+										type="text" 
+										name="name"
+										value="<?php echo $userName ?>" 
 									/>
-									<label for="number">Cantidad entregada</label>
+									<label for="name">Nombre de la cuenta</label>
+								</div>
+								
+								<div class="input-field col s12 m6">
+									<input id="password" 
+										type="password" 
+										name="password"
+									/>
+									<label for="password">Contraseña</label>
 								</div>
 								
 								<div class='col s12 center-align'>
 									<button 
 										class="btn waves-effect red lighten-1" type="submit" name="action"
 									>
-										Agregar
+										<?php echo $idUser === '' ? 'Añadir' : 'Editar' ?>
 									</button>
 								</div>
 								
@@ -95,35 +123,31 @@
 				</div>
 			</div>
 			
-			<div class='col s6'>
+			<div class='col s12'>
 				<div class="card">
 					<div class="card-content">
-						<span class='card-title'>Últimas entradas de suministros</span>
+						<span class="card-title">Usuarios registrados</span>
 						<table class="centered">
 							<thead>
 								<tr>
-									<th>Producto</th>
-									<th>Entrega</th>
-									<th>Fecha</th>
+									<th>Usuario</th>
+									<th colspan="2">Opciones</th>
 								</tr>
 							</thead>
-							
+
 							<tbody>
-								<?php
-									if (isset($data_table)) {
-										foreach ($data_table as $storage): 
-									?>
+								<?php 
+								if (!empty($data_table)) {
+									foreach ($data_table as $user) { 
+								?>
 									<tr>
-										<td><?php echo $storage['name'] ?></td>
-										<td>
-											<span class="green-text">+<?php echo $storage['stock'].$storage['medida']; ?></span>
-										</td>
-										<td>
-											<?php echo $storage['date'] ?>
+										<td><?php echo $user['username'] ?></td>
+										<td colspan="2">
+											<a href="editar_user.php?edit=<?php echo $user['id'] ?>" class="waves-effect light-blue darken-3 btn-small">Modificar</a>		
+											<a href="editar_user.php?delete=<?php echo $user['id'] ?>" class="waves-effect red darken-1 btn-small">Borrar</a>
 										</td>
 									</tr>
-								<?php 
-									endforeach;
+								<?php }
 								} ?>
 							</tbody>
 						</table>

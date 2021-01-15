@@ -1,0 +1,234 @@
+<?php 
+$url = $_SERVER['REQUEST_URI'];
+$url = explode("/",$url);
+$drawerActive = $url[count($url)-1];
+
+//List of Inventario
+switch ($drawerActive) {
+	case 'edit_produc.php':
+		$inventario='active';
+		break;
+
+	case 'suministros.php':
+		$inventario='active';
+		break;
+
+	case 'consumo.php':
+		$inventario='active';
+		break;
+
+	case 'productos_disponibles.php':
+		$inventario='active';
+		break;
+	
+	default:
+		$inventario = '';
+		break;
+}
+
+//List of Asistencia
+switch ($drawerActive) {
+	case 'edit_beneficiarios.php':
+		$asistencia='active';
+		break;
+
+	case 'edit_empleado.php':
+		$asistencia='active';
+		break;
+		
+	case 'delete_personas.php':
+		$asistencia='active';
+		break;
+
+	case 'registrar_asistencia.php':
+		$asistencia='active';
+		break;
+
+	case 'buscar_asistencia.php':
+		$asistencia='active';
+		break;
+	
+	default:
+		$asistencia = '';
+		break;
+}
+
+//List of Administracion
+switch ($drawerActive) {
+	case 'editar_user.php':
+		$administracion='active';
+		break;
+
+	case 'movimientos.php':
+		$administracion='active';
+		break;
+		
+	case 'respaldar_sistema.php':
+		$administracion='active';
+		break;
+	
+	default:
+		$administracion = '';
+		break;
+}
+
+//Items actives
+$panel = ($drawerActive === 'panel.php') ? 'active' : '' ;
+
+$editPrducts = ($drawerActive==='edit_produc.php') ? 'active' : '' ;
+$suministros = ($drawerActive==='suministros.php') ? 'active' : '' ;
+$consumo = ($drawerActive==='consumo.php') ? 'active' : '' ;
+$productosDisponibles = ($drawerActive==='productos_disponibles.php') ? 'active' : '' ;
+
+$addBenef = ($drawerActive==='edit_beneficiarios.php') ? 'active' : '' ;
+$addEmp = ($drawerActive==='edit_empleado.php') ? 'active' : '' ;
+$deletePer = ($drawerActive==='delete_personas.php') ? 'active' : '' ;
+$regAsis = ($drawerActive==='registrar_asistencia.php') ? 'active' : '' ;
+$searchAsis = ($drawerActive==='buscar_asistencia.php') ? 'active' : '' ;
+
+$editUser = ($drawerActive==='editar_user.php') ? 'active' : '' ;
+$movim = ($drawerActive==='movimientos.php') ? 'active' : '' ;
+$backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
+?>
+<header>
+	<nav>
+		<div class="nav-wrapper red darken-1">
+			<a href="#" data-target="drawer" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+			<ul class="right">
+				<li><a href="logout.php">Salir</a></li>
+			</ul>
+		</div>
+	</nav>
+	
+	<ul class="sidenav" id="drawer">
+		<li>
+			<div class="user-view">
+				<div class="background" style="background: #c75957 !important">
+					
+				</div>
+				<a>
+					<img src="img/logoWeb.png" alt="logo" width="80" height="80" />
+				</a>
+				<a>
+					<span class="white-text name"><?php echo $_SESSION['name'] ?></span>
+				</a>
+			</div>
+		</li>
+		
+		<li class='<?php echo $panel ?>'>
+			<a href="panel.php"><i class="material-icons">home</i>Inicio</a>
+		</li>
+		
+		<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<li class='<?php echo $inventario ?>'>
+					<a class="collapsible-header">Inventario<i class="material-icons">arrow_drop_down</i></a>
+					<div class="collapsible-body">
+						<ul>
+							<li class='<?php echo $editPrducts ?>'>
+								<a href="edit_produc.php">
+									<i class="material-icons">mode_edit</i>
+									Editar productos
+								</a>
+							</li>
+							<li class='<?php echo $suministros ?>'>
+								<a href="suministros.php">
+									<i class="material-icons">content_paste</i>
+									Entrada de suminsitros
+								</a>
+							</li>
+							<li class='<?php echo $consumo ?>'>
+								<a href="consumo.php">
+									<i class="material-icons">local_dining</i>
+									Consumo de suministros
+								</a>
+							</li>
+							<li class='<?php echo $productosDisponibles ?>'>
+								<a href="productos_disponibles.php">
+									<i class="material-icons">done</i>
+									Productos disponibles
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</li>
+		
+		<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<li class='<?php echo $asistencia ?>'>
+					<a class="collapsible-header">Asistencia<i class="material-icons">arrow_drop_down</i></a>
+					<div class="collapsible-body">
+						<ul>
+							<li class='<?php echo $addBenef ?>'>
+								<a href="edit_beneficiarios.php">
+									<i class="material-icons">mode_edit</i>
+									Añadir beneficiario
+								</a>
+							</li>
+							<li class='<?php echo $addEmp ?>'>
+								<a href="edit_empleado.php">
+									<i class="material-icons">mode_edit</i>
+									Añadir empleado
+								</a>
+							</li>
+							<li class='<?php echo $deletePer ?>'>
+								<a href="delete_personas.php">
+									<i class="material-icons">delete</i>
+									Eliminar personas
+								</a>
+							</li>
+							<li class='<?php echo $regAsis ?>'>
+								<a href="registrar_asistencia.php">
+									<i class="material-icons">playlist_add_check</i>
+									Registrar asistencia
+								</a>
+							</li>
+							<li class='<?php echo $searchAsis ?>'>
+								<a href="buscar_asistencia.php">
+									<i class="material-icons">search</i>
+									Buscar asistencias
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</li>
+		
+		<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+				<li>
+					<li class='<?php echo $administracion ?>'>
+					<a class="collapsible-header">Administrar<i class="material-icons">arrow_drop_down</i></a>
+					<div class="collapsible-body">
+						<ul>
+							<li class='<?php echo $editUser ?>'>
+								<a href="editar_user.php">
+									<i class="material-icons">people</i>
+									Editar usuarios
+								</a>
+							</li>
+							<li class='<?php echo $movim ?>'>
+								<a href="movimientos.php">
+									<i class="material-icons">computer</i>
+									Movimientos
+								</a>
+							</li>
+							<li class='<?php echo $backup ?>'>
+								<a href="respaldar_sistema.php">
+									<i class="material-icons">restore</i>
+									Respaldar sistema
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</li>
+		
+	</ul>
+</header>

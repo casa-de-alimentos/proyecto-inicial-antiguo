@@ -3,8 +3,6 @@
 	require 'php/controllers/loginController.php';
 	require 'php/controllers/BeneficiaryController.php';
 	require 'php/controllers/EmployeeController.php';
-	require 'php/controllers/AssistanceBenController.php';
-	require 'php/controllers/AssistanceEmpController.php';
 	
 	//Init session
 	session_start();
@@ -27,13 +25,24 @@
 
 	//Form
 	if (isset($action)) {
-		$controller = new AssistanceBenController();
-		$controller2 = new AssistanceEmpController();
+		$controller = new BeneficiaryController();
+		$controller2 = new EmployeeController();
 		
-		$dataSearch = $controller->search();
+		$dataPeople = $controller->show();
 		
-		if ($dataSearch === null) {
-			$dataSearch = $controller2->search();
+		if ($dataPeople === null) {
+			$dataPeople = $controller2->show();
+		}
+	}
+
+	if (isset($del)) {
+		$controller = new BeneficiaryController();
+		$controller2 = new EmployeeController();
+		
+		if ($delIn === 'ben') {
+			$controller->delete($del);
+		}else if ($delIn === 'emp') {
+			$controller2->delete($del);
 		}
 	}
 ?>
@@ -46,7 +55,6 @@
 	<link rel="stylesheet" href="css/main.css" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -55,7 +63,7 @@
 	<main class='container'>
 		<div class="row">
 			<div class='col s12'>
-				<h5>Buscar asistencia</h5>
+				<h5>Eliminar personas</h5>
 			</div>
 			
 			<div class="col s12">
@@ -88,11 +96,11 @@
 				<div class="card">
 					<div class="card-content">
 						<span class="card-title">Datos de la persona</span>
-						<?php if (!empty($dataSearch)): ?>
+						<?php if (!empty($dataPeople)): ?>
 						<table class="striped centered">
 							<thead>
 								<tr>
-									<?php if (isset($dataSearch[0]['seguimiento'])): ?>
+									<?php if (isset($dataPeople['seguimiento'])): ?>
 									<th>Cédula</th>
 									<th>Nombres</th>
 									<th>Apellidos</th>
@@ -101,7 +109,7 @@
 									<th>Peso</th>
 									<th>Registrado por</th>
 									<th>Seguimiento de peso</th>	
-									<?php elseif (isset($dataSearch[0]['telefono'])): ?>
+									<?php elseif (isset($dataPeople['telefono'])): ?>
 									<th>Cédula</th>
 									<th>Nombres</th>
 									<th>Apellidos</th>
@@ -113,103 +121,84 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php if (isset($dataSearch[0]['seguimiento'])): ?>
+								<?php if (isset($dataPeople['seguimiento'])): ?>
 								<tr>
-									<td><?php echo $dataSearch[0]['cedula'] ?></td>
-									<td><?php echo $dataSearch[0]['nombre'] ?></td>
-									<td><?php echo $dataSearch[0]['apellido'] ?></td>
+									<td><?php echo $dataPeople['cedula'] ?></td>
+									<td><?php echo $dataPeople['nombre'] ?></td>
+									<td><?php echo $dataPeople['apellido'] ?></td>
 									<td><?php
-										if ($dataSearch[0]['sexo']==='M') {
+										if ($dataPeople['sexo']==='M') {
 											echo 'Masculino';
 										}else {
 											echo 'Femenino';
 										}
 									?></td>
-									<td><?php echo $dataSearch[0]['nacimiento'] ?></td>
+									<td><?php echo $dataPeople['nacimiento'] ?></td>
 									<td><?php 
-										if (empty($dataSearch[0]['peso'])) {
+										if (empty($dataPeople['peso'])) {
 											echo 'No registrado';
 										}else {
-											echo $dataSearch[0]['peso'].'Kg';
+											echo $dataPeople['peso'].'Kg';
 										}
 									?></td>
 									<td><?php 
-										if ($dataSearch[0]['name']) {
-											echo $dataSearch[0]['name'];
+										if ($dataPeople['name']) {
+											echo $dataPeople['name'];
 										}else {
 											echo 'Cuenta eliminada';
 										}
 									?></td>
 									<td><?php
-										if ($dataSearch[0]['seguimiento']) {
+										if ($dataPeople['seguimiento']) {
 											echo 'activo';
 										}else {
 											echo 'desactivado';
 										}
 									?></td>
 								</tr>
-								<?php elseif (isset($dataSearch[0]['telefono'])): ?>
 								<tr>
-									<td><?php echo $dataSearch[0]['cedula'] ?></td>
-									<td><?php echo $dataSearch[0]['nombre'] ?></td>
-									<td><?php echo $dataSearch[0]['apellido'] ?></td>
+									<td colspan="8">
+										<a 
+											href="delete_personas.php?del=<?php echo $dataPeople['people_id'] ?>&delIn=ben" 
+											class="btn waves-effect red lighten-1" 
+										>
+											Eliminar beneficiario
+										</a>
+									</td>
+								</tr>
+								<?php elseif (isset($dataPeople['telefono'])): ?>
+								<tr>
+									<td><?php echo $dataPeople['cedula'] ?></td>
+									<td><?php echo $dataPeople['nombre'] ?></td>
+									<td><?php echo $dataPeople['apellido'] ?></td>
 									<td><?php
-										if ($dataSearch[0]['sexo']==='M') {
+										if ($dataPeople['sexo']==='M') {
 											echo 'Masculino';
 										}else {
 											echo 'Femenino';
 										}
 									?></td>
-									<td><?php echo $dataSearch[0]['nacimiento'] ?></td>
+									<td><?php echo $dataPeople['nacimiento'] ?></td>
 									<td><?php 
-										if (!empty($dataSearch[0]['telefono'])) {
-											echo $dataSearch[0]['telefono'];
+										if (!empty($dataPeople['telefono'])) {
+											echo $dataPeople['telefono'];
 										}else {
 											echo 'No registrado';
 										}
 									?></td>
-									<td><?php echo $dataSearch[0]['name'] ?></td>
+									<td><?php echo $dataPeople['name'] ?></td>
+								</tr>
+								<tr>
+									<td colspan="8">
+										<a 
+											href="delete_personas.php?del=<?php echo $dataPeople['people_id'] ?>&delIn=emp" 
+											class="btn waves-effect red lighten-1" 
+										>
+											Eliminar empleado
+										</a>
+									</td>
 								</tr>
 								<?php endif ?>
-							</tbody>
-						</table>
-						<?php endif ?>
-					</div>
-				</div>
-			</div>
-			
-			<?php if (isset($dataSearch[2]) && $dataSearch[0]['seguimiento']): ?>
-			<div class="col s12">
-				<div class="card">
-					<div class="card-content">
-						<span class="card-title">Seguimiento de peso</span>
-						<canvas id="seguiCanvas" height="250"></canvas>
-						<input type='hidden' id='seguimientoPeso' value='<?php echo json_encode(array($dataSearch[1], $dataSearch[2])) ?>' />
-						<span>Peso inicial: <?php echo $dataSearch[0]['peso'] ?>Kg</span>
-					</div>
-				</div>
-			</div>
-			<?php endif ?>
-			
-			<div class="col s12">
-				<div class="card">
-					<div class="card-content">
-						<span class="card-title">Asistencia</span>
-						<?php if (isset($dataSearch[1])): ?>
-						<table class='centered' id='table_compac'>
-							<thead>
-								<tr>
-									<th>Día</th>
-									<th>Estado</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php foreach($dataSearch[1] as $date): ?>
-								<tr>
-									<td><?php echo $date ?></td>
-									<td>Asistido</td>
-								</tr>
-								<?php endforeach ?>
 							</tbody>
 						</table>
 						<?php endif ?>
@@ -224,25 +213,7 @@
 	
 	<script src="js/jquery-3.4.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/statusBox.js"></script>
-	<script src="js/seguimiento.js"></script>
-	<script>
-		$.extend( true, $.fn.dataTable.defaults, {
-			"searching": false,
-			"ordering": false
-		});
-		$(document).ready(function() {
-			$('#table_compac').DataTable({
-				"pagingType": "full_numbers",
-				"language": {
-					"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-				},
-				
-			});
-		});
-	</script>
 </body>
 </html>

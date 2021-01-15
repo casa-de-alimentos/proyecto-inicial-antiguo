@@ -1,0 +1,11 @@
+.toast__error {
+	background-color: #e53935 !important;
+}
+
+.toast__warning {
+	background-color: #ffb300 !important;
+}
+
+.toast__success {
+	background-color: #43a047 !important;
+}
