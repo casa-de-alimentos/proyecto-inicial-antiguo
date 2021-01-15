@@ -5,6 +5,14 @@ if (!$_SESSION['auth']) {
 	header('location: index.php');
 }
 
+if ($_SESSION['super_user'] != 1) {
+	$_SESSION['statusBox'] = 'error';
+	$_SESSION['statusBox_message'] = 'Solo los Super Usuarios pueden hacer esto';
+
+	header('location: respaldar_sistema.php');
+	return null;
+}
+
 require 'php/DB.php';
 $db = new DB();
 $conn = $db->conectar();

@@ -206,24 +206,28 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 					<a class="collapsible-header">Administrar<i class="material-icons">arrow_drop_down</i></a>
 					<div class="collapsible-body">
 						<ul>
+							<?php if ($_SESSION['super_user'] == 1): ?>
 							<li class='<?php echo $editUser ?>'>
 								<a href="editar_user.php">
 									<i class="material-icons">people</i>
 									Editar usuarios
 								</a>
 							</li>
+							<?php endif ?>
 							<li class='<?php echo $movim ?>'>
 								<a href="movimientos.php">
 									<i class="material-icons">computer</i>
 									Movimientos
 								</a>
 							</li>
+							<?php if ($_SESSION['super_user'] == 1): ?>
 							<li class='<?php echo $backup ?>'>
 								<a href="respaldar_sistema.php">
 									<i class="material-icons">restore</i>
 									Respaldar sistema
 								</a>
 							</li>
+							<?php endif ?>
 						</ul>
 					</div>
 				</li>

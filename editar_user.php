@@ -35,12 +35,14 @@
 			if ($user['id'] === $idUser) {
 				$userUsername = $user['username'];
 				$userName = $user['name'];
+				$userSuper = $user['super_user'];
 			}
 		}
 	}else {
 		$idUser = "";
 		$userUsername = "";
 		$userName = "";
+		$userSuper = "";
 	}
 
 	//Verify form
@@ -107,6 +109,16 @@
 										name="password"
 									/>
 									<label for="password">Contraseña</label>
+								</div>
+								
+								<div class="col s12">
+									<div class="switch">
+										<label>
+											<input type="checkbox" <?php echo boolval($userSuper) ? 'checked' : '' ?> name="super_user">
+											<span class="lever"></span>
+											Cuenta modo Super Usuario
+										</label>
+									</div>
 								</div>
 								
 								<div class='col s12 center-align'>

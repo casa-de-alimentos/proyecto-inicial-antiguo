@@ -64,7 +64,7 @@
 					</div>
 					<div class="col s12 form__input">
 						<div class="input-field">
-							<input type="text" name="password" id="pass">
+							<input type="password" name="password" id="pass">
 							<label for="pass">Contraseña</label>
 						</div>
 					</div>

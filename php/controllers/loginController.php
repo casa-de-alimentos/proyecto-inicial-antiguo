@@ -59,6 +59,7 @@ class LoginController
     $_SESSION['user_id'] = $data['id'];
 		$_SESSION['username'] = $data['username'];
 		$_SESSION['name'] = $data['name'];
+		$_SESSION['super_user'] = $data['super_user'];
 		
 		$this->addLog('Inicio de sesión '.$data['username']);
 

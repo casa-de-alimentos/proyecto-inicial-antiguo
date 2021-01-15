@@ -7,7 +7,7 @@ class UserController
 		$db = new DB();
 		$conection = $db->conectar();
 
-		$sql="SELECT id, username, name FROM users";
+		$sql="SELECT id, username, name, super_user FROM users";
 
 		$res=mysqli_query($conection,$sql);
 
@@ -20,16 +20,24 @@ class UserController
 		//GetData
 		$i=0;
 		while ($data=mysqli_fetch_assoc($res)) {
-			$productos[$i] = $data;
+			$users[$i] = $data;
 			$i++;
 		}
 
-    return $productos;
+    return $users;
 	}
 	
 	public function create()
 	{
 		extract($_REQUEST);
+		
+		if ($_SESSION['super_user'] != 1) {
+			$_SESSION['statusBox'] = 'error';
+			$_SESSION['statusBox_message'] = 'Solo los Super Usuarios pueden hacer esto';
+			
+			header('location: editar_user.php');
+			return null;
+		}
 		
 		//Verify data
 		$verifyEmpty = LoginController::VerifyEmpty([$username, $name, $password]);
@@ -58,7 +66,12 @@ class UserController
 			return null;
     }
 		
-		$sql="INSERT INTO users (username, name, password) VALUES ('$username','$name','$password')";
+		if (!isset($super_user)) {
+			$super_user = 0;
+		}else {
+			$super_user = boolval($super_user);
+		}
+		$sql="INSERT INTO users (username, name, password, super_user) VALUES ('$username','$name','$password', ".$super_user.")";
 		$res=mysqli_query($conection,$sql);
 		
 		if (!$res) {
@@ -79,6 +92,14 @@ class UserController
 	public function edit()
 	{
 		extract($_REQUEST);
+		
+		if ($_SESSION['super_user'] != 1) {
+			$_SESSION['statusBox'] = 'error';
+			$_SESSION['statusBox_message'] = 'Solo los Super Usuarios pueden hacer esto';
+			
+			header('location: editar_user.php');
+			return null;
+		}
 		
 		//Verify data
 		$verifyEmpty = LoginController::VerifyEmpty([$name, $password, $id]);
@@ -127,6 +148,14 @@ class UserController
 	
 	public function delete($id)
 	{
+		if ($_SESSION['super_user'] != 1) {
+			$_SESSION['statusBox'] = 'error';
+			$_SESSION['statusBox_message'] = 'Solo los Super Usuarios pueden hacer esto';
+			
+			header('location: editar_user.php');
+			return null;
+		}
+		
 		//Verify data
 		$verifyEmpty = LoginController::VerifyEmpty([$id]);
 		
