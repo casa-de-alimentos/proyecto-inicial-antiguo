@@ -54,8 +54,8 @@
 							<thead>
 								<tr>
 									<th>Fecha</th>
-									<th>Cuenta</th>
 									<th>Acción</th>
+									<th>Cuenta</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -84,20 +84,6 @@
 	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src='js/statusBox.js'></script>
-	<script>
-		$.extend( true, $.fn.dataTable.defaults, {
-			"searching": false,
-			"ordering": false
-		});
-		$(document).ready(function() {
-			$('#table_compact').DataTable({
-				"pagingType": "full_numbers",
-				"language": {
-					"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-				},
-				
-			});
-		});
-	</script>
+	<script src='js/table_compac.js'></script>
 </body>
 </html>

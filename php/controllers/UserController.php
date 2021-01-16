@@ -71,7 +71,7 @@ class UserController
 		}else {
 			$super_user = boolval($super_user);
 		}
-		$sql="INSERT INTO users (username, name, password, super_user) VALUES ('$username','$name','$password', ".$super_user.")";
+		$sql="INSERT INTO users (username, name, password, super_user) VALUES ('$username','$name','".password_hash($password, PASSWORD_DEFAULT)."', ".$super_user.")";
 		$res=mysqli_query($conection,$sql);
 		
 		if (!$res) {
@@ -127,7 +127,7 @@ class UserController
 			return null;
     }
 		
-		$sql="UPDATE users SET name='$name', password='$password' WHERE id='$id'";
+		$sql="UPDATE users SET name='$name', password='".password_hash($password, PASSWORD_DEFAULT)."' WHERE id='$id'";
 		$res=mysqli_query($conection,$sql);
 		
 		if (!$res) {

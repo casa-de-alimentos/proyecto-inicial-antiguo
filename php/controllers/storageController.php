@@ -9,7 +9,7 @@ class StorageController
 		
 		if ($option === 'all') {
 			$sql="SELECT products.name, storage.stock, storage.date, products.medida, storage.action FROM storage 
-			INNER JOIN products ON products.id = storage.product_id ORDER BY storage.id DESC LIMIT 15";	
+			INNER JOIN products ON products.id = storage.product_id ORDER BY storage.id DESC";	
 		}else {
 			$sql="SELECT products.name, storage.stock, storage.date, products.medida FROM storage 
 			INNER JOIN products ON products.id = storage.product_id

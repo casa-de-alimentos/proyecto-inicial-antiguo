@@ -90,11 +90,11 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` longtext COLLATE utf8_unicode_ci NOT NULL,
   `super_user` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO users VALUES("1","admin","Administrador","admin","1");
+INSERT INTO users VALUES("1","admin","Administrador","$2y$10$yzDsu7v/DeZqDwaZB8tzeOtMpLUwySrEc5UVc1IHWxfJOPI7kTmFS","1");
 

@@ -129,7 +129,7 @@
 				<div class="card">
 					<div class="card-content">
 						<span class="card-title">Productos</span>
-						<table class="centered">
+						<table class="centered" id='table_compact'>
 							<thead>
 								<tr>
 									<th>Producto</th>

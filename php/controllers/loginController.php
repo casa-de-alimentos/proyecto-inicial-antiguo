@@ -43,7 +43,7 @@ class LoginController
 		//GetData
     $data=mysqli_fetch_assoc($res);
 		
-		if ($password !== $data['password']) {
+		if (!password_verify($password , $data['password'])) {
     	$_SESSION['statusBox'] = 'warning';
 			$_SESSION['statusBox_message'] = 'Contraseña incorrecta';
     	header('location: index.php');

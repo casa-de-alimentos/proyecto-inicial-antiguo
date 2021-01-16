@@ -31,7 +31,7 @@ class ProductController
 		extract($_REQUEST);
 		
 		//Verify data
-		$verifyEmpty = LoginController::VerifyEmpty([$name, $stock]);
+		$verifyEmpty = LoginController::VerifyEmpty([$name, $medida]);
 		
 		if ($verifyEmpty) {
 			$_SESSION['statusBox'] = 'error';

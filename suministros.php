@@ -45,6 +45,7 @@
 	<link rel="stylesheet" href="css/main.css" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -55,7 +56,7 @@
 			<div class='col s12'>
 				<h5>Entrada de suministros</h5>
 			</div>
-			<div class='col s6'>
+			<div class='col s12 m6'>
 				<div class="card">
 					<div class="card-content">
 						<form class='formProducts' method="POST" action="#" autocomplete='off'>
@@ -95,11 +96,11 @@
 				</div>
 			</div>
 			
-			<div class='col s6'>
+			<div class='col s12 m6'>
 				<div class="card">
 					<div class="card-content">
 						<span class='card-title'>Últimas entradas de suministros</span>
-						<table class="centered">
+						<table class="centered" id='table_compact'>
 							<thead>
 								<tr>
 									<th>Producto</th>
@@ -138,7 +139,9 @@
 	
 	<script src="js/jquery-3.4.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src='js/statusBox.js'></script>
+	<script src='js/table_compac.js'></script>
 </body>
 </html>
