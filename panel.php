@@ -15,11 +15,11 @@
 	}
 	
 	$count_ben = BeneficiaryController::counts();
-	$count_emp = EmployeeController::counts();
+	$count_ela = EmployeeController::counts();
 	$consumoMen = StorageController::consumo();
 	$entregaMen = StorageController::consumo(true);
 	$assBen = AssistanceBenController::counts();
-	$assEmp = AssistanceEmpController::counts();
+	$assEla = AssistanceEmpController::counts();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +48,7 @@
 						<span class="card-title">Personas registradas</span>
 						<canvas id="registred" height="250"></canvas>
 						<!-- Data Char -->
-						<input type="hidden" id="valuesRegisterPerson" value='<?php echo json_encode(array($count_ben, $count_emp)) ?>' />
+						<input type="hidden" id="valuesRegisterPerson" value='<?php echo json_encode(array($count_ben, $count_ela)) ?>' />
 					</div>
 				</div>
 			</div>
@@ -89,10 +89,10 @@
 			<div class="col s12 m6">
 				<div class="card">
 					<div class="card-content">
-						<span class="card-title">Asistencias mensuales (Empleados)</span>
+						<span class="card-title">Asistencias mensuales (Elaboradores)</span>
 						<canvas id="assEmp" height="250"></canvas>
 						<!-- Data Char -->
-						<input type="hidden" id="valuesAssEmp" value='<?php echo $assEmp ?>' />
+						<input type="hidden" id="valuesAssEmp" value='<?php echo $assEla ?>' />
 					</div>
 				</div>
 			</div>

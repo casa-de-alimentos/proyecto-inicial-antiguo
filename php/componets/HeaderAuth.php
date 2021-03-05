@@ -32,7 +32,7 @@ switch ($drawerActive) {
 		$asistencia='active';
 		break;
 
-	case 'edit_empleado.php':
+	case 'edit_elaborador.php':
 		$asistencia='active';
 		break;
 		
@@ -170,15 +170,15 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 								</a>
 							</li>
 							<li class='<?php echo $addEmp ?>'>
-								<a href="edit_empleado.php">
+								<a href="edit_elaborador.php">
 									<i class="material-icons">mode_edit</i>
-									Añadir empleado
+									Añadir elaborador
 								</a>
 							</li>
 							<li class='<?php echo $deletePer ?>'>
 								<a href="delete_personas.php">
 									<i class="material-icons">delete</i>
-									Eliminar personas
+									Eliminar persona
 								</a>
 							</li>
 							<li class='<?php echo $regAsis ?>'>
@@ -190,7 +190,7 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 							<li class='<?php echo $searchAsis ?>'>
 								<a href="buscar_asistencia.php">
 									<i class="material-icons">search</i>
-									Buscar asistencias
+									Buscar asistencia
 								</a>
 							</li>
 						</ul>

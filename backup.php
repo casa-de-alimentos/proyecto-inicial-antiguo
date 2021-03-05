@@ -16,7 +16,7 @@ if ($_SESSION['super_user'] != 1) {
 require 'php/DB.php';
 $db = new DB();
 $conn = $db->conectar();
-$database_name = "proyecto";
+$database_name = "casa_alimentacion";
 
 // Get All Table Names From the Database
 $tables = array();
@@ -71,10 +71,10 @@ foreach ($tables as $table) {
 if(!empty($sqlScript))
 {
 	// Save the SQL script to a backup file
-	$backup_file_name = $database_name . '_backup_' . time() . '.sql';
-	$fileHandler = fopen($backup_file_name, 'w+');
+	$backup_file_name = 'backups/'.$database_name . '_backup_' . time() . '.sql';
+	$fileHandler = fopen($backup_file_name, 'w');
 	$number_of_lines = fwrite($fileHandler, $sqlScript);
-	fclose($fileHandler); 
+	fclose($fileHandler);
 
 	// Download the SQL backup file to the browser
 	header('Content-Description: File Transfer');

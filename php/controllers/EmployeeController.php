@@ -64,7 +64,7 @@ class EmployeeController
 			$_SESSION['statusBox'] = 'error';
 			$_SESSION['statusBox_message'] = 'Debe rellenar todos los campos';
 
-			header('location: edit_empleado.php');
+			header('location: edit_elaborador.php');
 			return null;
 		}
 		
@@ -81,7 +81,7 @@ class EmployeeController
 		if ($cant > 0) {
 			$_SESSION['statusBox'] = 'warning';
 			$_SESSION['statusBox_message'] = 'La cedula ya está registrada en el sistema';
-			header('location: edit_empleado.php');
+			header('location: edit_elaborador.php');
 			return null;
 		}
 		
@@ -95,15 +95,15 @@ class EmployeeController
 		if (!$res) {
 			$_SESSION['statusBox'] = 'error';
 			$_SESSION['statusBox_message'] = 'No se pudo añadir al empleado';
-			header('location: edit_empleado.php');
+			header('location: edit_elaborador.php');
 			return null;
 		}
 
 
 		$_SESSION['statusBox'] = 'success';
 		$_SESSION['statusBox_message'] = 'Empleado añadido';
-		$this->addLog('Empleado '.$nombre.' añadido');
-		header('location: edit_empleado.php');
+		$this->addLog('Elaborador '.$nombre.' añadido');
+		header('location: edit_elaborador.php');
 	}
 	
 	public function delete($id)
@@ -144,7 +144,7 @@ class EmployeeController
 		$_SESSION['statusBox'] = 'success';
 		$_SESSION['statusBox_message'] = 'Empleado borrado';
 		
-		$this->addLog('Empleado '.$data['nombre'].' eliminado');
+		$this->addLog('Elaborador '.$data['nombre'].' eliminado');
 		header('location: delete_personas.php');
 	}
 	
