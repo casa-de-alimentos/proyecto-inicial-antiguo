@@ -8,6 +8,10 @@ switch ($drawerActive) {
 	case 'edit_produc.php':
 		$inventario='active';
 		break;
+		
+	case 'edit_bienes.php':
+		$inventario='active';
+		break;
 
 	case 'suministros.php':
 		$inventario='active';
@@ -75,7 +79,8 @@ switch ($drawerActive) {
 //Items actives
 $panel = ($drawerActive === 'panel.php') ? 'active' : '' ;
 
-$editPrducts = ($drawerActive==='edit_produc.php') ? 'active' : '' ;
+$editProducts = ($drawerActive==='edit_produc.php') ? 'active' : '' ;
+$editBienes = ($drawerActive==='edit_bienes.php') ? 'active' : '' ;
 $suministros = ($drawerActive==='suministros.php') ? 'active' : '' ;
 $consumo = ($drawerActive==='consumo.php') ? 'active' : '' ;
 $productosDisponibles = ($drawerActive==='productos_disponibles.php') ? 'active' : '' ;
@@ -126,7 +131,13 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 					<a class="collapsible-header">Inventario<i class="material-icons">arrow_drop_down</i></a>
 					<div class="collapsible-body">
 						<ul>
-							<li class='<?php echo $editPrducts ?>'>
+							<li class='<?php echo $editBienes ?>'>
+								<a href="edit_bienes.php">
+									<i class="material-icons">weekend</i>
+									Bienes
+								</a>
+							</li>
+							<li class='<?php echo $editProducts ?>'>
 								<a href="edit_produc.php">
 									<i class="material-icons">mode_edit</i>
 									Editar productos
