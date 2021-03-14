@@ -11,7 +11,6 @@ for (let i = 0; i < data[0].length; i++) {
 	dataPeso[data[1].length - 1 - i] = data[1][i][0];
 	dataEstatura[data[1].length - 1 - i] = data[1][i][1];
 	dataIMC[data[1].length - 1 - i] = data[1][i][0] / (data[1][i][1] ^ 2);
-	console.log('hola');
 }
 
 var dataSets = [
