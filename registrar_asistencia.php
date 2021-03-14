@@ -14,17 +14,6 @@
 		header('location: index.php');
 	}
 
-	//StatusBox
-	if(isset($_SESSION['statusBox'])) {
-		$dataStatus = array(
-			'message' => $_SESSION['statusBox_message'],
-			'status' => $_SESSION['statusBox'],
-		);
-		
-		unset($_SESSION['statusBox']);
-		unset($_SESSION['statusBox_message']);
-	}
-
 	//Form
 	if (isset($action)) {
 		$controller = new BeneficiaryController();
@@ -37,12 +26,23 @@
 		}
 	}
 
+	//StatusBox
+	if(isset($_SESSION['statusBox'])) {
+		$dataStatus = array(
+			'message' => $_SESSION['statusBox_message'],
+			'status' => $_SESSION['statusBox'],
+		);
+		
+		unset($_SESSION['statusBox']);
+		unset($_SESSION['statusBox_message']);
+	}
+
 	if (isset($reg)) {
 		$controller = new AssistanceBenController();
 		$controller2 = new AssistanceEmpController();
 		
 		if ($regIn === 'ben') {
-			$controller->create($reg, $peso);
+			$controller->create($reg, $peso, $talla);
 		}else if ($regIn === 'emp') {
 			$controller2->create($reg);
 		}
@@ -102,13 +102,14 @@
 						<table class="striped centered">
 							<thead>
 								<tr>
-									<?php if (isset($dataPeople['seguimiento'])): ?>
+									<?php if (isset($dataPeople['peso'])): ?>
 									<th>Cédula</th>
 									<th>Nombres</th>
 									<th>Apellidos</th>
 									<th>Sexo</th>
 									<th>Nacimiento</th>
 									<th>Peso</th>
+									<th>Estatura</th>
 									<th>Registrado por</th>
 									<th>Seguimiento de peso</th>	
 									<?php elseif (isset($dataPeople['telefono'])): ?>
@@ -136,13 +137,8 @@
 										}
 									?></td>
 									<td><?php echo $dataPeople['nacimiento'] ?></td>
-									<td><?php 
-										if (empty($dataPeople['peso'])) {
-											echo 'No registrado';
-										}else {
-											echo $dataPeople['peso'].'Kg';
-										}
-									?></td>
+									<td><?php echo $dataPeople['peso'].'Kg';?></td>
+									<td><?php echo $dataPeople['talla'].'m';?></td>
 									<td><?php 
 										if ($dataPeople['name']) {
 											echo $dataPeople['name'];
@@ -159,25 +155,33 @@
 									?></td>
 								</tr>
 								<tr>
-									<td colspan="8">
+									<td colspan="9">
 										<form action="registrar_asistencia.php">
-										<input type='hidden' name='reg' value='<?php echo $dataPeople['people_id'] ?>' />
-										<input type='hidden' name='regIn' value='ben' />
-										<?php if ($dataPeople['seguimiento']): ?>
-										<div class="input-field col s12">
-											<input id="search" 
-												type="number" 
-												name="peso"
-												step="0.1" 
-											/>
-											<label for="search">Nuevo peso</label>
-										</div>
-										<?php endif ?>
-										<button
-											class="btn waves-effect red lighten-1" 
-										>
-											Registrar asistencia
-										</button>
+											<input type='hidden' name='reg' value='<?php echo $dataPeople['people_id'] ?>' />
+											<input type='hidden' name='regIn' value='ben' />
+											<?php if ($dataPeople['seguimiento']): ?>
+											<div class="input-field col s12">
+												<input id="peso" 
+													type="number" 
+													name="peso"
+													step="0.01" 
+												/>
+												<label for="peso">Nuevo peso</label>
+											</div>
+											<div class="input-field col s12">
+												<input id="talla" 
+													type="number" 
+													name="talla"
+													step="0.01" 
+												/>
+												<label for="talla">Nueva estatura</label>
+											</div>
+											<?php endif ?>
+											<button
+												class="btn waves-effect red lighten-1" 
+											>
+												Registrar asistencia
+											</button>
 										</form>
 									</td>
 								</tr>

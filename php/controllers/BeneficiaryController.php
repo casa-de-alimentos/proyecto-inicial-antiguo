@@ -32,7 +32,7 @@ class BeneficiaryController
 		$db = new DB();
 		$conection = $db->conectar();
 
-		$sql="SELECT beneficiarys.seguimiento, beneficiarys.cedula, beneficiarys.nombre, beneficiarys.apellido, beneficiarys.nacimiento, beneficiarys.peso, users.name, beneficiarys.id as people_id, beneficiarys.sexo FROM beneficiarys 
+		$sql="SELECT beneficiarys.seguimiento, beneficiarys.cedula, beneficiarys.nombre, beneficiarys.apellido, beneficiarys.nacimiento, beneficiarys.peso, beneficiarys.talla, users.name, beneficiarys.id as people_id, beneficiarys.sexo FROM beneficiarys 
 		LEFT JOIN users ON users.id = beneficiarys.created_by
 		WHERE cedula='$search'";
 
@@ -58,7 +58,7 @@ class BeneficiaryController
 		extract($_REQUEST);
 		
 		//Verify data
-		$verifyEmpty = LoginController::VerifyEmpty([$cedula, $nombre, $apellido, $sexo, $fecha]);
+		$verifyEmpty = LoginController::VerifyEmpty([$cedula, $nombre, $apellido, $sexo, $fecha, $peso, $talla]);
 		
 		if ($verifyEmpty) {
 			$_SESSION['statusBox'] = 'error';
@@ -88,25 +88,25 @@ class BeneficiaryController
 		//Verificar seguimiento
 		$userId = $_SESSION['user_id'];
 		$date = (new DateTime($fecha))->format('Y-m-d');
-		if (isset($seguimiento) && $seguimiento) {
-			if (isset($peso) && $peso <= 0) {
-				$_SESSION['statusBox'] = 'warning';
-				$_SESSION['statusBox_message'] = 'Debe colocar un peso para poder realizar el seguimiento';
-				header('location: edit_beneficiarios.php');
-				return null;
-			}
-
-			$sql="INSERT INTO beneficiarys (cedula, nombre, apellido, sexo, nacimiento, peso, seguimiento,created_by) VALUES ('$cedula', '$nombre', '$apellido', '$sexo', '$date', '$peso', '1', '$userId')";
-		}else {
-			if (isset($peso) && empty($peso)) {
-				$sql="INSERT INTO beneficiarys (cedula, nombre, apellido, sexo, nacimiento, created_by) VALUES ('$cedula', '$nombre', '$apellido', '$sexo', '$date', '$userId')";
-			}else {
-				$sql="INSERT INTO beneficiarys (cedula, nombre, apellido, sexo, nacimiento, peso, created_by) VALUES ('$cedula', '$nombre', '$apellido', '$sexo', '$date', '$peso', '$userId')";
-			}
+		if ($peso <= 0) {
+			$_SESSION['statusBox'] = 'warning';
+			$_SESSION['statusBox_message'] = 'El peso debe ser un número positivo';
+			header('location: edit_beneficiarios.php');
+			return null;
 		}
 		
+		if ($talla <= 0) {
+			$_SESSION['statusBox'] = 'warning';
+			$_SESSION['statusBox_message'] = 'La estatura debe ser un número positivo';
+			header('location: edit_beneficiarios.php');
+			return null;
+		}
+		$seguimiento = boolval($seguimiento) ? 1 : 0;
+		
+		$sql="INSERT INTO beneficiarys (cedula, nombre, apellido, sexo, nacimiento, peso, talla, seguimiento, created_by) VALUES ('$cedula', '$nombre', '$apellido', '$sexo', '$date', '$peso', '$talla', '$seguimiento', '$userId')";
+		
 		$res=mysqli_query($conection,$sql);
-
+		
 		if (!$res) {
 			$_SESSION['statusBox'] = 'error';
 			$_SESSION['statusBox_message'] = 'No se pudo añadir al beneficiario';

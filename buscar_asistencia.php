@@ -14,17 +14,6 @@
 		header('location: index.php');
 	}
 
-	//StatusBox
-	if(isset($_SESSION['statusBox'])) {
-		$dataStatus = array(
-			'message' => $_SESSION['statusBox_message'],
-			'status' => $_SESSION['statusBox'],
-		);
-		
-		unset($_SESSION['statusBox']);
-		unset($_SESSION['statusBox_message']);
-	}
-
 	//Form
 	if (isset($action)) {
 		$controller = new AssistanceBenController();
@@ -35,6 +24,17 @@
 		if ($dataSearch === null) {
 			$dataSearch = $controller2->search();
 		}
+	}
+
+	//StatusBox
+	if(isset($_SESSION['statusBox'])) {
+		$dataStatus = array(
+			'message' => $_SESSION['statusBox_message'],
+			'status' => $_SESSION['statusBox'],
+		);
+		
+		unset($_SESSION['statusBox']);
+		unset($_SESSION['statusBox_message']);
 	}
 
 	if (isset($delete)) {
@@ -103,13 +103,14 @@
 						<table class="striped centered">
 							<thead>
 								<tr>
-									<?php if (isset($dataSearch[0]['seguimiento'])): ?>
+									<?php if (isset($dataSearch[0]['peso'])): ?>
 									<th>Cédula</th>
 									<th>Nombres</th>
 									<th>Apellidos</th>
 									<th>Sexo</th>
 									<th>Nacimiento</th>
 									<th>Peso</th>
+									<th>Estatura</th>
 									<th>Registrado por</th>
 									<th>Seguimiento de peso</th>	
 									<?php elseif (isset($dataSearch[0]['telefono'])): ?>
@@ -137,13 +138,8 @@
 										}
 									?></td>
 									<td><?php echo $dataSearch[0]['nacimiento'] ?></td>
-									<td><?php 
-										if (empty($dataSearch[0]['peso'])) {
-											echo 'No registrado';
-										}else {
-											echo $dataSearch[0]['peso'].'Kg';
-										}
-									?></td>
+									<td><?php echo $dataSearch[0]['peso'].'Kg';?></td>
+									<td><?php echo $dataSearch[0]['talla'].'m';?></td>
 									<td><?php 
 										if ($dataSearch[0]['name']) {
 											echo $dataSearch[0]['name'];
@@ -193,10 +189,23 @@
 			<div class="col s12">
 				<div class="card">
 					<div class="card-content">
-						<span class="card-title">Seguimiento de peso</span>
+						<span class="card-title">Seguimiento de nutrición</span>
 						<canvas id="seguiCanvas" height="250"></canvas>
-						<input type='hidden' id='seguimientoPeso' value='<?php echo json_encode(array($dataSearch[1], $dataSearch[2])) ?>' />
-						<span>Peso inicial: <?php echo $dataSearch[0]['peso'] ?>Kg</span>
+						<input type='hidden' id='seguimientoIMC' value='<?php echo json_encode(array($dataSearch[1], $dataSearch[2])) ?>' />
+						<div>Nutición inicial: <?php echo $dataSearch[0]['peso'] ?> IMC</div>
+						<div>Peso inicial: <?php echo $dataSearch[0]['peso'] ?>Kg</div>
+						<div>Estatura inicial: <?php echo $dataSearch[0]['talla'] ?>m</div>
+						<span class="card-title">Estados del IMC</span>
+						<div>Por debajo de 18.5: <span class='text-'>Bajo de peso</span></div>
+						<div>
+							18.5 – 24.9: Normal
+						</div>
+						<div>
+							25.0 – 29.9: Sobrepeso
+						</div>
+						<div>
+							30.0 o más: Obseso
+						</div>
 					</div>
 				</div>
 			</div>

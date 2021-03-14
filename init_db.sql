@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 13-03-2021 a las 00:22:50
+-- Tiempo de generación: 14-03-2021 a las 23:13:15
 -- Versión del servidor: 5.7.33-0ubuntu0.18.04.1
 -- Versión de PHP: 7.3.27-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -29,7 +29,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `assistance_ben` (
   `id` int(11) NOT NULL,
   `date` date NOT NULL,
-  `peso` int(11) DEFAULT '0',
+  `peso` float DEFAULT NULL,
+  `talla` float DEFAULT NULL,
   `beneficiary_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -58,7 +59,8 @@ CREATE TABLE `beneficiarys` (
   `apellido` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `sexo` set('M','F') COLLATE utf8_unicode_ci NOT NULL,
   `nacimiento` date NOT NULL,
-  `peso` int(11) DEFAULT NULL,
+  `peso` float NOT NULL,
+  `talla` float NOT NULL,
   `seguimiento` tinyint(1) DEFAULT '0',
   `created_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

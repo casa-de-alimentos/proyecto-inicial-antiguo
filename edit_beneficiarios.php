@@ -90,15 +90,24 @@
 									<input id="peso" 
 										type="number" 
 										name="peso"
+										step="0.01"
 									/>
-									<label for="peso">Peso actual (Opcional)</label>
+									<label for="peso">Peso actual</label>
+								</div>
+								<div class="input-field col s12 m6">
+									<input id="talla" 
+										type="number" 
+										name="talla"
+										step="0.01"
+									/>
+									<label for="peso">Estatura actual (en metros)</label>
 								</div>
 								<div class="col s12">
 									<div class="switch">
-										<label>
+										<label class="tooltipped" data-position="bottom" data-tooltip="Al activar esta funcionalidad tendrá que registrar el peso y la estatura en cada asistencia">
 											<input type="checkbox" name="seguimiento">
 											<span class="lever"></span>
-											Activar seguimiento de peso
+											Activar seguimiento de nutrición
 										</label>
 									</div>
 								</div>

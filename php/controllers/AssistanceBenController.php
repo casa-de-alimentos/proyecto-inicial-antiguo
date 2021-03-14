@@ -18,7 +18,7 @@ class AssistanceBenController
 		$db = new DB();
 		$conection = $db->conectar();
 
-		$sql="SELECT beneficiarys.seguimiento, beneficiarys.cedula, beneficiarys.nombre, beneficiarys.apellido, beneficiarys.nacimiento, beneficiarys.peso, users.name, beneficiarys.id as people_id, beneficiarys.sexo FROM beneficiarys 
+		$sql="SELECT beneficiarys.seguimiento, beneficiarys.cedula, beneficiarys.nombre, beneficiarys.apellido, beneficiarys.nacimiento, beneficiarys.peso, beneficiarys.talla, users.name, beneficiarys.id as people_id, beneficiarys.sexo FROM beneficiarys 
 		LEFT JOIN users ON users.id = beneficiarys.created_by
 		WHERE cedula='$search'";
 
@@ -40,20 +40,20 @@ class AssistanceBenController
 		$res=mysqli_query($conection,$sql);
 		
 		$dataAsis = array();
-		$dataPeso = array();
+		$dataNutricion = array();
 		while($data=mysqli_fetch_assoc($res)) {
 			array_push($dataAsis, array($data['date'], $data['id']));
-			array_push($dataPeso, $data['peso']);
+			array_push($dataNutricion, array($data['peso'],$data['talla']));
 		}
 		
-		$MasterArray = array($dataPeople, $dataAsis, $dataPeso);
+		$MasterArray = array($dataPeople, $dataAsis, $dataNutricion);
 		
 		unset($_SESSION['statusBox']);
 		unset($_SESSION['statusBox_message']);
 		return $MasterArray;
 	}
 	
-	public function create($id, $peso)
+	public function create($id, $peso, $talla)
 	{
 		//Verify data
 		$verifyEmpty = LoginController::VerifyEmpty([$id]);
@@ -101,10 +101,10 @@ class AssistanceBenController
 		}
 		
 		//Insertar asistencia
-		if (!empty($peso)) {
-			$sql="INSERT INTO assistance_ben (date, peso, beneficiary_id) VALUES ('$date','$peso','$id')";
+		if (!empty($peso) && !empty($talla)) {
+			$sql="INSERT INTO assistance_ben (date, peso, talla, beneficiary_id) VALUES ('$date','$peso', '$talla','$id')";
 		}else {
-			$sql="INSERT INTO assistance_ben (date, peso, beneficiary_id) VALUES ('$date',0,'$id')";
+			$sql="INSERT INTO assistance_ben (date, beneficiary_id) VALUES ('$date','$id')";
 		}
 
 		$res=mysqli_query($conection,$sql);

@@ -3,6 +3,12 @@ $(document).ready(function(){
     $('select').formSelect();
 });
 
+// Iniciar Tooltips
+document.addEventListener('DOMContentLoaded', function() {
+	var elems = document.querySelectorAll('.tooltipped');
+	var instances = M.Tooltip.init(elems, {});
+});
+
 //Iniciar datePicker
  document.addEventListener('DOMContentLoaded', function() {
 	var elems = document.querySelectorAll('.datepicker');
