@@ -192,7 +192,10 @@
 						<span class="card-title">Seguimiento de nutrición</span>
 						<canvas id="seguiCanvas" height="250"></canvas>
 						<input type='hidden' id='seguimientoIMC' value='<?php echo json_encode(array($dataSearch[1], $dataSearch[2])) ?>' />
-						<div>Nutición inicial: <?php echo $dataSearch[0]['peso'] ?> IMC</div>
+						<div>Nutición inicial: <?php 
+							$IMC = $dataSearch[0]['peso'] / ($dataSearch[0]['talla']**2);
+							echo $IMC;
+							?> IMC</div>
 						<div>Peso inicial: <?php echo $dataSearch[0]['peso'] ?>Kg</div>
 						<div>Estatura inicial: <?php echo $dataSearch[0]['talla'] ?>m</div>
 						<span class="card-title">Estados del IMC</span>
