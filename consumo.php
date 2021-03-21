@@ -56,7 +56,7 @@
 			<div class='col s12'>
 				<h5>Consumo de suministros</h5>
 			</div>
-			<div class='col s6'>
+			<div class='col s12 m6'>
 				<div class="card">
 					<div class="card-content">
 						<form class='formProducts' method="POST" action="#" autocomplete='off'>
@@ -96,7 +96,7 @@
 				</div>
 			</div>
 			
-			<div class='col s6'>
+			<div class='col s12 m6'>
 				<div class="card">
 					<div class="card-content">
 						<span class='card-title'>Últimos gastos de suministros</span>

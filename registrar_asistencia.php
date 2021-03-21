@@ -99,127 +99,128 @@
 					<div class="card-content">
 						<span class="card-title">Datos de la persona</span>
 						<?php if (!empty($dataPeople)): ?>
-						<table class="striped centered">
-							<thead>
-								<tr>
-									<?php if (isset($dataPeople['peso'])): ?>
-									<th>Cédula</th>
-									<th>Nombres</th>
-									<th>Apellidos</th>
-									<th>Sexo</th>
-									<th>Nacimiento</th>
-									<th>Peso</th>
-									<th>Estatura</th>
-									<th>Registrado por</th>
-									<th>Seguimiento de peso</th>	
+						<div style='overflow: auto'>
+							<table class="striped centered">
+								<thead>
+									<tr>
+										<?php if (isset($dataPeople['peso'])): ?>
+										<th>Cédula</th>
+										<th>Nombres</th>
+										<th>Apellidos</th>
+										<th>Sexo</th>
+										<th>Nacimiento</th>
+										<th>Peso</th>
+										<th>Estatura</th>
+										<th>Registrado por</th>
+										<th>Seguimiento de peso</th>	
+										<?php elseif (isset($dataPeople['telefono'])): ?>
+										<th>Cédula</th>
+										<th>Nombres</th>
+										<th>Apellidos</th>
+										<th>Sexo</th>
+										<th>Nacimiento</th>
+										<th>teléfono</th>
+										<th>Registrado por</th>
+										<?php endif ?>
+									</tr>
+								</thead>
+								<tbody>
+									<?php if (isset($dataPeople['seguimiento'])): ?>
+									<tr>
+										<td><?php echo $dataPeople['cedula'] ?></td>
+										<td><?php echo $dataPeople['nombre'] ?></td>
+										<td><?php echo $dataPeople['apellido'] ?></td>
+										<td><?php
+											if ($dataPeople['sexo']==='M') {
+												echo 'Masculino';
+											}else {
+												echo 'Femenino';
+											}
+										?></td>
+										<td><?php echo $dataPeople['nacimiento'] ?></td>
+										<td><?php echo $dataPeople['peso'].'Kg';?></td>
+										<td><?php echo $dataPeople['talla'].'m';?></td>
+										<td><?php 
+											if ($dataPeople['name']) {
+												echo $dataPeople['name'];
+											}else {
+												echo 'Cuenta eliminada';
+											}
+										?></td>
+										<td><?php
+											if ($dataPeople['seguimiento']) {
+												echo 'activo';
+											}else {
+												echo 'desactivado';
+											}
+										?></td>
+									</tr>
 									<?php elseif (isset($dataPeople['telefono'])): ?>
-									<th>Cédula</th>
-									<th>Nombres</th>
-									<th>Apellidos</th>
-									<th>Sexo</th>
-									<th>Nacimiento</th>
-									<th>teléfono</th>
-									<th>Registrado por</th>
+									<tr>
+										<td><?php echo $dataPeople['cedula'] ?></td>
+										<td><?php echo $dataPeople['nombre'] ?></td>
+										<td><?php echo $dataPeople['apellido'] ?></td>
+										<td><?php
+											if ($dataPeople['sexo']==='M') {
+												echo 'Masculino';
+											}else {
+												echo 'Femenino';
+											}
+										?></td>
+										<td><?php echo $dataPeople['nacimiento'] ?></td>
+										<td><?php 
+											if (!empty($dataPeople['telefono'])) {
+												echo $dataPeople['telefono'];
+											}else {
+												echo 'No registrado';
+											}
+										?></td>
+										<td><?php echo $dataPeople['name'] ?></td>
+									</tr>
 									<?php endif ?>
-								</tr>
-							</thead>
-							<tbody>
-								<?php if (isset($dataPeople['seguimiento'])): ?>
-								<tr>
-									<td><?php echo $dataPeople['cedula'] ?></td>
-									<td><?php echo $dataPeople['nombre'] ?></td>
-									<td><?php echo $dataPeople['apellido'] ?></td>
-									<td><?php
-										if ($dataPeople['sexo']==='M') {
-											echo 'Masculino';
-										}else {
-											echo 'Femenino';
-										}
-									?></td>
-									<td><?php echo $dataPeople['nacimiento'] ?></td>
-									<td><?php echo $dataPeople['peso'].'Kg';?></td>
-									<td><?php echo $dataPeople['talla'].'m';?></td>
-									<td><?php 
-										if ($dataPeople['name']) {
-											echo $dataPeople['name'];
-										}else {
-											echo 'Cuenta eliminada';
-										}
-									?></td>
-									<td><?php
-										if ($dataPeople['seguimiento']) {
-											echo 'activo';
-										}else {
-											echo 'desactivado';
-										}
-									?></td>
-								</tr>
-								<tr>
-									<td colspan="9">
-										<form action="registrar_asistencia.php">
-											<input type='hidden' name='reg' value='<?php echo $dataPeople['people_id'] ?>' />
-											<input type='hidden' name='regIn' value='ben' />
-											<?php if ($dataPeople['seguimiento']): ?>
-											<div class="input-field col s12">
-												<input id="peso" 
-													type="number" 
-													name="peso"
-													step="0.01" 
-												/>
-												<label for="peso">Nuevo peso</label>
-											</div>
-											<div class="input-field col s12">
-												<input id="talla" 
-													type="number" 
-													name="talla"
-													step="0.01" 
-												/>
-												<label for="talla">Nueva estatura</label>
-											</div>
-											<?php endif ?>
-											<button
-												class="btn waves-effect red lighten-1" 
-											>
-												Registrar asistencia
-											</button>
-										</form>
-									</td>
-								</tr>
-								<?php elseif (isset($dataPeople['telefono'])): ?>
-								<tr>
-									<td><?php echo $dataPeople['cedula'] ?></td>
-									<td><?php echo $dataPeople['nombre'] ?></td>
-									<td><?php echo $dataPeople['apellido'] ?></td>
-									<td><?php
-										if ($dataPeople['sexo']==='M') {
-											echo 'Masculino';
-										}else {
-											echo 'Femenino';
-										}
-									?></td>
-									<td><?php echo $dataPeople['nacimiento'] ?></td>
-									<td><?php 
-										if (!empty($dataPeople['telefono'])) {
-											echo $dataPeople['telefono'];
-										}else {
-											echo 'No registrado';
-										}
-									?></td>
-									<td><?php echo $dataPeople['name'] ?></td>
-								</tr>
-								<tr>
-									<td colspan="8">
-										<a 
-											href="registrar_asistencia.php?reg=<?php echo $dataPeople['people_id'] ?>&regIn=emp" 
-											class="btn waves-effect red lighten-1" 
-										>
-											Registrar asistencia
-										</a>
-									</td>
-								</tr>
-								<?php endif ?>
-							</tbody>
-						</table>
+								</tbody>
+							</table>
+						</div>
+						<?php if (isset($dataPeople['seguimiento'])): ?>
+						<form action="registrar_asistencia.php">
+							<input type='hidden' name='reg' value='<?php echo $dataPeople['people_id'] ?>' />
+							<input type='hidden' name='regIn' value='ben' />
+							<?php if ($dataPeople['seguimiento']): ?>
+							<div class="input-field col s12">
+								<input id="peso" 
+									type="number" 
+									name="peso"
+									step="0.01" 
+								/>
+								<label for="peso">Nuevo peso</label>
+							</div>
+							<div class="input-field col s12">
+								<input id="talla" 
+									type="number" 
+									name="talla"
+									step="0.01" 
+								/>
+								<label for="talla">Nueva estatura</label>
+							</div>
+							<?php endif ?>
+							<div class='center-align'>
+								<button
+									class="btn waves-effect red lighten-1" 
+								>
+									Registrar asistencia
+								</button>
+							</div>
+						</form>
+						<?php elseif (isset($dataPeople['telefono'])): ?>
+						<div class='center-align'>
+							<a 
+								href="registrar_asistencia.php?reg=<?php echo $dataPeople['people_id'] ?>&regIn=emp" 
+								class="btn waves-effect red lighten-1" 
+							>
+								Registrar asistencia
+							</a>
+						</div>
+						<?php endif ?>
 						<?php endif ?>
 					</div>
 				</div>

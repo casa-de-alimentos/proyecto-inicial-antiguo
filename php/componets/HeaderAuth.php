@@ -108,7 +108,7 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 	<ul class="sidenav" id="drawer">
 		<li>
 			<div class="user-view">
-				<div class="background" style="background: #c75957 !important">
+				<div class="background" style="background: #e25a58 !important">
 					
 				</div>
 				<a>
@@ -140,7 +140,7 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 							<li class='<?php echo $editProducts ?>'>
 								<a href="edit_produc.php">
 									<i class="material-icons">mode_edit</i>
-									Editar productos
+									Administrar productos
 								</a>
 							</li>
 							<li class='<?php echo $suministros ?>'>
@@ -189,7 +189,7 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 							<li class='<?php echo $deletePer ?>'>
 								<a href="delete_personas.php">
 									<i class="material-icons">delete</i>
-									Eliminar persona
+									Eliminar Elab/Bene
 								</a>
 							</li>
 							<li class='<?php echo $regAsis ?>'>
@@ -221,7 +221,7 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 							<li class='<?php echo $editUser ?>'>
 								<a href="editar_user.php">
 									<i class="material-icons">people</i>
-									Editar usuarios
+									Administrar usuarios
 								</a>
 							</li>
 							<?php endif ?>
@@ -235,7 +235,7 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 							<li class='<?php echo $backup ?>'>
 								<a href="respaldar_sistema.php">
 									<i class="material-icons">restore</i>
-									Respaldar sistema
+									Respaldar/Restaurar sistema
 								</a>
 							</li>
 							<?php endif ?>

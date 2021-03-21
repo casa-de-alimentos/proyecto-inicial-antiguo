@@ -100,86 +100,88 @@
 					<div class="card-content">
 						<span class="card-title">Datos de la persona</span>
 						<?php if (!empty($dataSearch)): ?>
-						<table class="striped centered">
-							<thead>
-								<tr>
-									<?php if (isset($dataSearch[0]['peso'])): ?>
-									<th>Cédula</th>
-									<th>Nombres</th>
-									<th>Apellidos</th>
-									<th>Sexo</th>
-									<th>Nacimiento</th>
-									<th>Peso</th>
-									<th>Estatura</th>
-									<th>Registrado por</th>
-									<th>Seguimiento de peso</th>	
+						<div style='overflow: auto'>
+							<table class="striped centered">
+								<thead>
+									<tr>
+										<?php if (isset($dataSearch[0]['peso'])): ?>
+										<th>Cédula</th>
+										<th>Nombres</th>
+										<th>Apellidos</th>
+										<th>Sexo</th>
+										<th>Nacimiento</th>
+										<th>Peso</th>
+										<th>Estatura</th>
+										<th>Registrado por</th>
+										<th>Seguimiento de peso</th>	
+										<?php elseif (isset($dataSearch[0]['telefono'])): ?>
+										<th>Cédula</th>
+										<th>Nombres</th>
+										<th>Apellidos</th>
+										<th>Sexo</th>
+										<th>Nacimiento</th>
+										<th>teléfono</th>
+										<th>Registrado por</th>
+										<?php endif ?>
+									</tr>
+								</thead>
+								<tbody>
+									<?php if (isset($dataSearch[0]['seguimiento'])): ?>
+									<tr>
+										<td><?php echo $dataSearch[0]['cedula'] ?></td>
+										<td><?php echo $dataSearch[0]['nombre'] ?></td>
+										<td><?php echo $dataSearch[0]['apellido'] ?></td>
+										<td><?php
+											if ($dataSearch[0]['sexo']==='M') {
+												echo 'Masculino';
+											}else {
+												echo 'Femenino';
+											}
+										?></td>
+										<td><?php echo $dataSearch[0]['nacimiento'] ?></td>
+										<td><?php echo $dataSearch[0]['peso'].'Kg';?></td>
+										<td><?php echo $dataSearch[0]['talla'].'m';?></td>
+										<td><?php 
+											if ($dataSearch[0]['name']) {
+												echo $dataSearch[0]['name'];
+											}else {
+												echo 'Cuenta eliminada';
+											}
+										?></td>
+										<td><?php
+											if ($dataSearch[0]['seguimiento']) {
+												echo 'activo';
+											}else {
+												echo 'desactivado';
+											}
+										?></td>
+									</tr>
 									<?php elseif (isset($dataSearch[0]['telefono'])): ?>
-									<th>Cédula</th>
-									<th>Nombres</th>
-									<th>Apellidos</th>
-									<th>Sexo</th>
-									<th>Nacimiento</th>
-									<th>teléfono</th>
-									<th>Registrado por</th>
+									<tr>
+										<td><?php echo $dataSearch[0]['cedula'] ?></td>
+										<td><?php echo $dataSearch[0]['nombre'] ?></td>
+										<td><?php echo $dataSearch[0]['apellido'] ?></td>
+										<td><?php
+											if ($dataSearch[0]['sexo']==='M') {
+												echo 'Masculino';
+											}else {
+												echo 'Femenino';
+											}
+										?></td>
+										<td><?php echo $dataSearch[0]['nacimiento'] ?></td>
+										<td><?php 
+											if (!empty($dataSearch[0]['telefono'])) {
+												echo $dataSearch[0]['telefono'];
+											}else {
+												echo 'No registrado';
+											}
+										?></td>
+										<td><?php echo $dataSearch[0]['name'] ?></td>
+									</tr>
 									<?php endif ?>
-								</tr>
-							</thead>
-							<tbody>
-								<?php if (isset($dataSearch[0]['seguimiento'])): ?>
-								<tr>
-									<td><?php echo $dataSearch[0]['cedula'] ?></td>
-									<td><?php echo $dataSearch[0]['nombre'] ?></td>
-									<td><?php echo $dataSearch[0]['apellido'] ?></td>
-									<td><?php
-										if ($dataSearch[0]['sexo']==='M') {
-											echo 'Masculino';
-										}else {
-											echo 'Femenino';
-										}
-									?></td>
-									<td><?php echo $dataSearch[0]['nacimiento'] ?></td>
-									<td><?php echo $dataSearch[0]['peso'].'Kg';?></td>
-									<td><?php echo $dataSearch[0]['talla'].'m';?></td>
-									<td><?php 
-										if ($dataSearch[0]['name']) {
-											echo $dataSearch[0]['name'];
-										}else {
-											echo 'Cuenta eliminada';
-										}
-									?></td>
-									<td><?php
-										if ($dataSearch[0]['seguimiento']) {
-											echo 'activo';
-										}else {
-											echo 'desactivado';
-										}
-									?></td>
-								</tr>
-								<?php elseif (isset($dataSearch[0]['telefono'])): ?>
-								<tr>
-									<td><?php echo $dataSearch[0]['cedula'] ?></td>
-									<td><?php echo $dataSearch[0]['nombre'] ?></td>
-									<td><?php echo $dataSearch[0]['apellido'] ?></td>
-									<td><?php
-										if ($dataSearch[0]['sexo']==='M') {
-											echo 'Masculino';
-										}else {
-											echo 'Femenino';
-										}
-									?></td>
-									<td><?php echo $dataSearch[0]['nacimiento'] ?></td>
-									<td><?php 
-										if (!empty($dataSearch[0]['telefono'])) {
-											echo $dataSearch[0]['telefono'];
-										}else {
-											echo 'No registrado';
-										}
-									?></td>
-									<td><?php echo $dataSearch[0]['name'] ?></td>
-								</tr>
-								<?php endif ?>
-							</tbody>
-						</table>
+								</tbody>
+							</table>
+						</div>
 						<?php endif ?>
 					</div>
 				</div>
@@ -194,20 +196,24 @@
 						<input type='hidden' id='seguimientoIMC' value='<?php echo json_encode(array($dataSearch[1], $dataSearch[2])) ?>' />
 						<div>Nutición inicial: <?php 
 							$IMC = $dataSearch[0]['peso'] / ($dataSearch[0]['talla']**2);
-							echo $IMC;
+							echo round($IMC, 2);
 							?> IMC</div>
 						<div>Peso inicial: <?php echo $dataSearch[0]['peso'] ?>Kg</div>
 						<div>Estatura inicial: <?php echo $dataSearch[0]['talla'] ?>m</div>
-						<span class="card-title">Estados del IMC</span>
-						<div>Por debajo de 18.5: <span class='text-'>Bajo de peso</span></div>
+						<span class="card-title">Última revisión</span>
 						<div>
-							18.5 – 24.9: Normal
+							<?php 
+							$pesoActual = $dataSearch[2][0][0];
+							$IMCActual = $dataSearch[2][0][1];
+							$tallaActual = $dataSearch[2][0][2];
+							$controllerBen = new BeneficiaryController();
+							$statusIMC = $controllerBen->clasificationIMC($IMCActual);
+							?>
+							Nutrición actual: <?php echo $IMCActual ?>
 						</div>
 						<div>
-							25.0 – 29.9: Sobrepeso
-						</div>
-						<div>
-							30.0 o más: Obseso
+							Clasificación: 
+							<span class='<?php echo $statusIMC['color'] ?>'><?php echo $statusIMC['type'] ?> (<?php echo $statusIMC['warning'] ?>)</span>
 						</div>
 					</div>
 				</div>

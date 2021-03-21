@@ -42,8 +42,9 @@ class AssistanceBenController
 		$dataAsis = array();
 		$dataNutricion = array();
 		while($data=mysqli_fetch_assoc($res)) {
+			$IMC = round($data['peso'] / ($data['talla']**2), 2);
 			array_push($dataAsis, array($data['date'], $data['id']));
-			array_push($dataNutricion, array($data['peso'],$data['talla']));
+			array_push($dataNutricion, array($data['peso'],$IMC,$data['talla']));
 		}
 		
 		$MasterArray = array($dataPeople, $dataAsis, $dataNutricion);

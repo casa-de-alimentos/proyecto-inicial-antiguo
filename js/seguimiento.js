@@ -9,8 +9,8 @@ let dataFecha = [];
 for (let i = 0; i < data[0].length; i++) {
 	dataFecha[data[0].length - 1 - i] = data[0][i][0];
 	dataPeso[data[1].length - 1 - i] = data[1][i][0];
-	dataEstatura[data[1].length - 1 - i] = data[1][i][1];
-	dataIMC[data[1].length - 1 - i] = data[1][i][0] / (data[1][i][1] ^ 2);
+	dataEstatura[data[1].length - 1 - i] = data[1][i][2];
+	dataIMC[data[1].length - 1 - i] = data[1][i][1];
 }
 
 var dataSets = [

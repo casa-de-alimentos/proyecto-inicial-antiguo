@@ -76,7 +76,7 @@
 	<main class='container'>
 		<div class="row">
 			<div class='col s12'>
-				<h5>Editar usuarios</h5>
+				<h5>Administrar usuarios</h5>
 			</div>
 			<div class='col s12'>
 				<div class="card">

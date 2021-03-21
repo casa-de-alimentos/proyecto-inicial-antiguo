@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	var instances = M.Datepicker.init(elems, 
 		{
 			format: 'dd-mm-yyyy',
+			yearRange: 80,
+			maxDate: new Date(),
 			i18n: {
 				cancel: 'Cancelar',
 				months: [

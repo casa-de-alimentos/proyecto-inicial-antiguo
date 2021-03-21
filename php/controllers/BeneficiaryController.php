@@ -169,5 +169,18 @@ class BeneficiaryController
 		
 		$res=mysqli_query($conection,$sql);
 	}
+	
+	public function clasificationIMC($IMC)
+	{
+		if ($IMC < 16) {
+			return array('type' => 'C', 'color' => 'red-text darken-2', 'warning' => 'grave');
+		}else if ($IMC <= 18.49) {
+			return array('type' => 'B', 'color' => 'orange-text darken-2', 'warning' => 'leve y moderado');
+		}else if ($IMC <=18.9) {
+			return array('type' => 'A', 'color' => 'teal-text darken-2', 'warning' => 'moderado');
+		}else if ($IMC > 18.9) {
+			return array('type' => 'N', 'color' => 'grey-text darken-2', 'warning' => 'normal');
+		}
+	}
 }
 ?>
