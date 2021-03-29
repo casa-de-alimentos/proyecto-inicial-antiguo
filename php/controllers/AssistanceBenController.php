@@ -35,7 +35,10 @@ class AssistanceBenController
 		$dataPeople=mysqli_fetch_assoc($res);
 		
 		// Asistencias
-		$sql = "SELECT * FROM assistance_ben WHERE beneficiary_id = ".$dataPeople['people_id']." ORDER BY date DESC";
+		$sql = "SELECT peso, talla, id, MONTHNAME(assistance_ben.date) as mes, DATE_FORMAT(assistance_ben.date,'%Y') as year 
+		FROM `assistance_ben` 
+		WHERE beneficiary_id = '".$dataPeople['people_id']."' AND (NOT `peso`='NULL' AND NOT `talla`='NULL')
+		ORDER BY date DESC";
 		
 		$res=mysqli_query($conection,$sql);
 		
@@ -43,7 +46,7 @@ class AssistanceBenController
 		$dataNutricion = array();
 		while($data=mysqli_fetch_assoc($res)) {
 			$IMC = round($data['peso'] / ($data['talla']**2), 2);
-			array_push($dataAsis, array($data['date'], $data['id']));
+			array_push($dataAsis, array($data['mes'], $data['year'], $data['id']));
 			array_push($dataNutricion, array($data['peso'],$IMC,$data['talla']));
 		}
 		
@@ -52,6 +55,31 @@ class AssistanceBenController
 		unset($_SESSION['statusBox']);
 		unset($_SESSION['statusBox_message']);
 		return $MasterArray;
+	}
+	
+	public function getAssis($id) {
+		//Consulta
+		$db = new DB();
+		$conection = $db->conectar();
+		
+		$sql = "SELECT peso, talla, id, date
+		FROM `assistance_ben` 
+		WHERE beneficiary_id = '$id'
+		ORDER BY date DESC";
+		
+		$res=mysqli_query($conection,$sql);
+		
+		$array=[];
+		$i=0;
+		while($data=mysqli_fetch_assoc($res)) {
+			$array[$i]['peso'] = $data['peso'];
+			$array[$i]['talla'] = $data['talla'];
+			$array[$i]['id'] = $data['id'];
+			$array[$i]['date'] = $data['date'];
+			$i++;
+		}
+		
+		return $array;
 	}
 	
 	public function create($id, $peso, $talla)
@@ -159,6 +187,33 @@ class AssistanceBenController
 		}
 		
 		return json_encode($request);
+	}
+	
+	public function registerNutricion($id) {
+		///Consulta
+		$db = new DB();
+		$conection = $db->conectar();
+		
+		$sql="SELECT * FROM `assistance_ben` 
+		WHERE `beneficiary_id`='$id' AND (NOT `peso`='NULL' AND NOT `talla`='NULL')";
+		
+		$res=mysqli_query($conection,$sql);
+		$cant=mysqli_num_rows($res);
+		$data=mysqli_fetch_assoc($res);
+		
+		$fecha_actual = strtotime(date("Y-m-d")."- 90 days");
+		$fecha_registrada = strtotime($data['date']);
+		
+		// Verificar que haya al menos un registro
+		if ($cant === 0) {
+			return true;
+		}
+		
+		if ($fecha_actual >= $fecha_registrada) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	public function addLog($action)

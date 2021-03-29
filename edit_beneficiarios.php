@@ -104,7 +104,7 @@
 								</div>
 								<div class="col s12">
 									<div class="switch">
-										<label class="tooltipped" data-position="bottom" data-tooltip="Al activar esta funcionalidad tendrá que registrar el peso y la estatura en cada asistencia">
+										<label class="tooltipped" data-position="bottom" data-tooltip="Al activar esta funcionalidad tendrá que registrar el peso y la estatura cada 90 días">
 											<input type="checkbox" name="seguimiento">
 											<span class="lever"></span>
 											Activar seguimiento de nutrición

@@ -113,7 +113,7 @@
 										<th>Peso</th>
 										<th>Estatura</th>
 										<th>Registrado por</th>
-										<th>Seguimiento de peso</th>	
+										<th>Seguimiento de nutrición</th>	
 										<?php elseif (isset($dataSearch[0]['telefono'])): ?>
 										<th>Cédula</th>
 										<th>Nombres</th>
@@ -233,10 +233,22 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php foreach($dataSearch[1] as $assis): ?>
+								<?php 
+								$data=[];
+								if (isset($dataSearch[0])) {
+									$controller = new AssistanceBenController();
+									$data = $controller->getAssis($dataSearch[0]['people_id']);
+								}
+								?>
+								<?php foreach($data as $assis): ?>
 								<tr>
-									<td><?php echo $assis[0] ?></td>
-									<td><a href="buscar_asistencia.php?delete=<?php echo $assis[1] ?>&people=<?php echo isset($dataSearch[0]['seguimiento']) ? 'ben' : 'emp' ?>&delete_user=<?php echo $dataSearch[0]['cedula'] ?>" class="waves-effect red darken-1 btn-small">Borrar</a></td>
+									<td>
+										<?php echo $assis['date'] ?>
+										<?php
+										echo $assis['peso'] ? '(seguimiento)' : ''
+										?>
+									</td>
+									<td><a href="buscar_asistencia.php?delete=<?php echo $assis[2] ?>&people=<?php echo isset($dataSearch[0]['seguimiento']) ? 'ben' : 'emp' ?>&delete_user=<?php echo $dataSearch[0]['cedula'] ?>" class="waves-effect red darken-1 btn-small">Borrar</a></td>
 								</tr>
 								<?php endforeach ?>
 							</tbody>

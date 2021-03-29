@@ -112,7 +112,7 @@
 										<th>Peso</th>
 										<th>Estatura</th>
 										<th>Registrado por</th>
-										<th>Seguimiento de peso</th>	
+										<th>Seguimiento de nutrició</th>	
 										<?php elseif (isset($dataPeople['telefono'])): ?>
 										<th>Cédula</th>
 										<th>Nombres</th>
@@ -181,11 +181,16 @@
 								</tbody>
 							</table>
 						</div>
+						
 						<?php if (isset($dataPeople['seguimiento'])): ?>
 						<form action="registrar_asistencia.php">
 							<input type='hidden' name='reg' value='<?php echo $dataPeople['people_id'] ?>' />
 							<input type='hidden' name='regIn' value='ben' />
-							<?php if ($dataPeople['seguimiento']): ?>
+							<?php 
+							$controller = new AssistanceBenController();
+							$segNutri = $controller->registerNutricion($dataPeople['people_id']);
+							?>
+							<?php if ($dataPeople['seguimiento'] && $segNutri): ?>
 							<div class="input-field col s12">
 								<input id="peso" 
 									type="number" 
