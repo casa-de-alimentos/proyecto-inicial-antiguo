@@ -9,6 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	var instances = M.Tooltip.init(elems, {});
 });
 
+// Init TABS
+document.addEventListener('DOMContentLoaded', function() {
+	let elem = document.querySelector('.tabs');
+	let instance = M.Tabs.init(elem, {});
+});
+
 //Iniciar datePicker
  document.addEventListener('DOMContentLoaded', function() {
 	var elems = document.querySelectorAll('.datepicker');

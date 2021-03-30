@@ -59,21 +59,21 @@
 										type="text" 
 										name="cedula"
 									/>
-									<label for="cedula">Cédula</label>
+									<label for="cedula">* Cédula</label>
 								</div>
 								<div class="input-field col s12 m6">
 									<input id="nombre" 
 										type="text" 
 										name="nombre"
 									/>
-									<label for="nombre">Nombres</label>
+									<label for="nombre">* Nombres</label>
 								</div>
 								<div class="input-field col s12 m6">
 									<input id="apellido" 
 										type="text" 
 										name="apellido"
 									/>
-									<label for="apellido">Apellidos</label>
+									<label for="apellido">* Apellidos</label>
 								</div>
 								<div class="input-field col s12 m6">
 									<select name='sexo'>
@@ -81,11 +81,11 @@
 										<option value="F">Femenino</option>
 										<option value="M">Masculino</option>
 									</select>
-									<label>Género</label>
+									<label>* Género</label>
 								</div>
 								<div class="input-field col s12 m6">
 									<input id="fecha" type="text" name="fecha" class="datepicker">
-									<label for="fecha">Fecha de nacimiento</label>
+									<label for="fecha">* Fecha de nacimiento</label>
 								</div>
 								<div class="input-field col s12 m6">
 									<i class="material-icons prefix">phone</i>

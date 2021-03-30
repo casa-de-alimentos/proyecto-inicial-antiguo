@@ -124,6 +124,10 @@ main {
 	cursor: pointer;
 }
 
+.textSpacing {
+	margin: 4px 0;
+}
+
 .error {
 	background: #e53935;
 }

@@ -3,23 +3,17 @@ class StartController
 {
 	public function start()
 	{	
-		//Pedir movimientos
-		$db = new mysqli('localhost', 'root', '1234') or die 
-    ('No conectado');
-		
-		$db->set_charset("utf8");
-		$db->query("SET lc_time_names = 'es_ES'");
+		$db = new DB();
+		$conection = $db->connectWithoutDB();
 		
 		$sql="CREATE DATABASE casa_alimentacion";
 
-		$res=mysqli_query($db,$sql);
+		$res=mysqli_query($conection,$sql);
 		if ($res) {
-			$db = new mysqli('localhost', 'root', '1234', 'casa_alimentacion') or die 
-			('No conectado');
-
-			$db->set_charset("utf8");
-			$db->query("SET lc_time_names = 'es_ES'");
-			$result = $this->restoreMysqlDB('init_db.sql', $db);
+			$db = new DB();
+			$conection = $db->conectar();
+			
+			$result = $this->restoreMysqlDB('init_db.sql', $conection);
 			
 			$_SESSION['statusBox'] = $result['type'];
 			$_SESSION['statusBox_message'] = $result['message'];

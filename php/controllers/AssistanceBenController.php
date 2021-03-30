@@ -18,7 +18,8 @@ class AssistanceBenController
 		$db = new DB();
 		$conection = $db->conectar();
 
-		$sql="SELECT beneficiarys.seguimiento, beneficiarys.cedula, beneficiarys.nombre, beneficiarys.apellido, beneficiarys.nacimiento, beneficiarys.peso, beneficiarys.talla, users.name, beneficiarys.id as people_id, beneficiarys.sexo FROM beneficiarys 
+		$sql="SELECT beneficiarys.seguimiento, beneficiarys.cedula, beneficiarys.nombre, beneficiarys.apellido, beneficiarys.nacimiento, beneficiarys.peso, beneficiarys.talla, users.name, beneficiarys.id as people_id, beneficiarys.sexo, beneficiarys.nacionalidad, beneficiarys.serial_patria, beneficiarys.codigo_patria, beneficiarys.direccion, beneficiarys.comunidad, beneficiarys.parroquia, beneficiarys.cantidad_de_hijos, beneficiarys.telef_local, beneficiarys.telef_celular, beneficiarys.estudiante, beneficiarys.grado_instruccion, beneficiarys.desea_estudiar, beneficiarys.que_desea_estudiar, beneficiarys.habilidad_posee, beneficiarys.inscrito_CNE, beneficiarys.ejerce_voto, beneficiarys.centro_electoral, beneficiarys.enfermedad, beneficiarys.discapacidad, beneficiarys.codigo_carnet_discapacidad, beneficiarys.embarazada, beneficiarys.fecha_embarazo, beneficiarys.fecha_parto, beneficiarys.bono_eventuales, beneficiarys.bono_lactancia, beneficiarys.bono_parto, beneficiarys.bono_jose_gregoreo, beneficiarys.bono_hogares, beneficiarys.pencionado, beneficiarys.pencionado_por, orga_social_politica
+		FROM beneficiarys 
 		LEFT JOIN users ON users.id = beneficiarys.created_by
 		WHERE cedula='$search'";
 

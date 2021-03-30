@@ -183,7 +183,67 @@
 							</table>
 						</div>
 						<?php endif ?>
+						<br/>
+						<?php if (!empty($dataSearch)): ?>
+						<span class="card-title">Otros datos</span>
+						<?php endif ?>
 					</div>
+					<?php if (!empty($dataSearch)): ?>
+					<div class="card-tabs">
+						<ul class="tabs tabs-fixed-width">
+							<li class="tab"><a class="active" href="#personales">Personales</a></li>
+							<li class="tab"><a href="#estudios">Estudios</a></li>
+							<li class="tab"><a href="#CNE">CNE</a></li>
+							<li class="tab"><a href="#bonos">Bonos</a></li>
+						</ul>
+					</div>
+					<div class="card-content grey lighten-4">
+						<div id="personales" class='row'>
+							<span class='col s12 m6 l4 textSpacing'><strong>Edad:</strong> <?php 
+							$cumpleanos = new DateTime($dataSearch[0]['nacimiento']);
+							$hoy = new DateTime();
+							$edad = $hoy->diff($cumpleanos);
+							echo $edad->y;
+							?> años</span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Nacionalidad:</strong> <?php echo $dataSearch[0]['nacionalidad']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Serial de patria:</strong> <?php echo $dataSearch[0]['serial_patria']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Código de patria:</strong> <?php echo $dataSearch[0]['codigo_patria']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Dirección:</strong> <?php echo $dataSearch[0]['direccion']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Comunidad:</strong> <?php echo $dataSearch[0]['comunidad']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Parroquia:</strong> <?php echo $dataSearch[0]['parroquia']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Cantidad de hijos:</strong> <?php echo $dataSearch[0]['cantidad_de_hijos']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Teléfono local:</strong> <?php echo isset($dataSearch[0]['telef_local']) ? $dataSearch[0]['telef_local'] : 'No tiene'; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Teléfono celular:</strong> <?php echo $dataSearch[0]['telef_celular']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Posee alguna enfermedad?:</strong> <?php echo isset($dataSearch[0]['enfermedad']) ? $dataSearch[0]['enfermedad'] : 'No'; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Posee alguna discapacidad?:</strong> <?php echo isset($dataSearch[0]['discapacidad']) ? $dataSearch[0]['discapacidad'] : 'No'; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Está embarazada?:</strong> <?php echo isset($dataSearch[0]['embarazada']) ? $dataSearch[0]['embarazada'] : 'No'; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Fecha de embarazo:</strong> <?php echo isset($dataSearch[0]['fecha_embarazo']) ? $dataSearch[0]['fecha_embarazo'] : 'No registrada'; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Fecha de parto:</strong> <?php echo isset($dataSearch[0]['fecha_parto']) ? $dataSearch[0]['fecha_parto'] : 'No registrada'; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Está pencionado?:</strong> <?php echo $dataSearch[0]['pencionado']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Por donde cobra?:</strong> <?php echo isset($dataSearch[0]['pencionado_por']) ? $dataSearch[0]['pencionado_por'] : 'No registrado'; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Pertenece a una organización social o política?:</strong> <?php echo isset($dataSearch[0]['orga_social_politica']) ? $dataSearch[0]['orga_social_politica'] : 'No'; ?></span>
+						</div>
+						<div id="estudios" class='row'>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Es estudiante?:</strong> <?php echo $dataSearch[0]['estudiante']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Grado de instrucción:</strong> <?php echo isset($dataSearch[0]['grado_instruccion']) ? $dataSearch[0]['grado_instruccion'] : 'No registrado'; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Desea estudiar?:</strong> <?php echo $dataSearch[0]['desea_estudiar']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Qué desea estudiar?:</strong> <?php echo isset($dataSearch[0]['que_desea_estudiar']) ? $dataSearch[0]['que_desea_estudiar'] : 'No registrado'; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Habilidad que posee:</strong> <?php echo isset($dataSearch[0]['habilidad_posee']) ? $dataSearch[0]['habilidad_posee'] : 'No registrado'; ?></span>
+						</div>
+						<div id="CNE" class='row'>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Inscrito en CNE?:</strong> <?php echo $dataSearch[0]['inscrito_CNE']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Ejerce el voto?:</strong> <?php echo $dataSearch[0]['ejerce_voto']; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>Centro electoral:</strong> <?php echo isset($dataSearch[0]['centro_electoral']) ? $dataSearch[0]['centro_electoral'] : 'No registrado'; ?></span>
+						</div>
+						<div id="bonos" class='row'>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Recibe bonos eventuales?:</strong> <?php echo $dataSearch[0]['bono_eventuales'] ? 'Si' : 'No' ; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Recibe bono de Lactancia Materna?:</strong> <?php echo $dataSearch[0]['bono_lactancia'] ? 'Si' : 'No' ; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Recibe bono Parto Humanizado?:</strong> <?php echo $dataSearch[0]['bono_parto'] ? 'Si' : 'No' ; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Recibe bono José Gregoreo?:</strong> <?php echo $dataSearch[0]['bono_jose_gregoreo'] ? 'Si' : 'No' ; ?></span>
+							<span class='col s12 m6 l4 textSpacing'><strong>¿Recibe bono Hogares de la Patria?:</strong> <?php echo $dataSearch[0]['bono_hogares'] ? 'Si' : 'No' ; ?></span>
+						</div>
+					</div>
+					<?php endif ?>
 				</div>
 			</div>
 			
