@@ -119,7 +119,6 @@
 										<th>Apellidos</th>
 										<th>Sexo</th>
 										<th>Nacimiento</th>
-										<th>teléfono</th>
 										<th>Registrado por</th>
 										<?php endif ?>
 									</tr>
@@ -168,13 +167,6 @@
 											}
 										?></td>
 										<td><?php echo $dataPeople['nacimiento'] ?></td>
-										<td><?php 
-											if (!empty($dataPeople['telefono'])) {
-												echo $dataPeople['telefono'];
-											}else {
-												echo 'No registrado';
-											}
-										?></td>
 										<td><?php echo $dataPeople['name'] ?></td>
 									</tr>
 									<?php endif ?>

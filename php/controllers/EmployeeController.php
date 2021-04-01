@@ -56,17 +56,6 @@ class EmployeeController
 	public function create()
 	{
 		extract($_REQUEST);
-
-		//Verify data
-		$verifyEmpty = LoginController::VerifyEmpty([$cedula, $nombre, $apellido, $sexo, $fecha]);
-		
-		if ($verifyEmpty) {
-			$_SESSION['statusBox'] = 'error';
-			$_SESSION['statusBox_message'] = 'Debe rellenar todos los campos';
-
-			header('location: edit_elaborador.php');
-			return null;
-		}
 		
 		//Consulta
 		$db = new DB();
@@ -85,10 +74,26 @@ class EmployeeController
 			return null;
 		}
 		
-		//Añadir empleado
-		$date = (new DateTime($fecha))->format('Y-m-d');
-		$user = $_SESSION['user_id'];
-		$sql="INSERT INTO employees (cedula, nombre, apellido, sexo, nacimiento, telefono, created_by) VALUES ('$cedula', '$nombre', '$apellido', '$sexo', '$date', '$telefono', '$user')";
+		// Parse inputs to string SQL
+		$userId = $_SESSION['user_id'];
+		$sql_inputs = '';
+		$sql_values = '';
+		foreach($_POST as $key => $value) {
+			if (strlen($value) > 0) {
+				$sql_inputs= $sql_inputs."$key,";
+				if ($value === 'on') {
+					$sql_values= $sql_values."'1',";
+				} else if ($key === 'nacimiento' || $key === 'fecha_embarazo' || $key === 'fecha_parto') {
+					$date = (new DateTime($value))->format('Y-m-d');
+					$sql_values= $sql_values."'$date',";
+				}else {
+					$sql_values= $sql_values."'$value',";
+				}
+			}
+		}
+		
+		$sql="INSERT INTO employees ($sql_inputs created_by) VALUES ($sql_values '$userId')";
+		$_SESSION['test'] = $sql;
 		
 		$res=mysqli_query($conection,$sql);
 

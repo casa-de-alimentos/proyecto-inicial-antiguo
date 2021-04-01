@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 30-03-2021 a las 06:41:08
+-- Tiempo de generación: 01-04-2021 a las 02:05:14
 -- Versión del servidor: 5.7.33-0ubuntu0.18.04.1
 -- Versión de PHP: 7.3.27-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -121,7 +121,37 @@ CREATE TABLE `employees` (
   `apellido` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `sexo` set('M','F') COLLATE utf8_unicode_ci NOT NULL,
   `nacimiento` date NOT NULL,
-  `telefono` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `nacionalidad` set('V','E') COLLATE utf8_unicode_ci NOT NULL,
+  `serial_patria` bigint(20) NOT NULL,
+  `codigo_patria` bigint(20) NOT NULL,
+  `direccion` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `comunidad` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `parroquia` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `cantidad_de_hijos` tinyint(4) NOT NULL,
+  `telef_local` bigint(20) DEFAULT NULL,
+  `telef_celular` bigint(20) NOT NULL,
+  `estudiante` set('Si','No') COLLATE utf8_unicode_ci NOT NULL,
+  `grado_instruccion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `desea_estudiar` set('Si','No') COLLATE utf8_unicode_ci NOT NULL,
+  `que_desea_estudiar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `habilidad_posee` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `inscrito_CNE` set('Si','No') COLLATE utf8_unicode_ci NOT NULL,
+  `ejerce_voto` set('Si','No') COLLATE utf8_unicode_ci NOT NULL,
+  `centro_electoral` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `enfermedad` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `discapacidad` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `codigo_carnet_discapacidad` bigint(20) DEFAULT NULL,
+  `embarazada` set('Si','No') COLLATE utf8_unicode_ci NOT NULL,
+  `fecha_embarazo` date DEFAULT NULL,
+  `fecha_parto` date DEFAULT NULL,
+  `bono_eventuales` tinyint(1) NOT NULL DEFAULT '0',
+  `bono_lactancia` tinyint(1) NOT NULL DEFAULT '0',
+  `bono_parto` tinyint(1) NOT NULL DEFAULT '0',
+  `bono_jose_gregoreo` tinyint(1) NOT NULL DEFAULT '0',
+  `bono_hogares` tinyint(1) NOT NULL DEFAULT '0',
+  `pencionado` set('Si','No') COLLATE utf8_unicode_ci NOT NULL,
+  `pencionado_por` set('Amor mayor','Iviss') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `orga_social_politica` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

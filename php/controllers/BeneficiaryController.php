@@ -57,9 +57,6 @@ class BeneficiaryController
 	{
 		extract($_REQUEST);
 		
-		//Verify data
-		$verifyEmpty = LoginController::VerifyEmpty([$nacionalidad, $sexo]);
-		
 		//Consulta
 		$db = new DB();
 		$conection = $db->conectar();
@@ -79,7 +76,6 @@ class BeneficiaryController
 		
 		//Verificar seguimiento
 		$userId = $_SESSION['user_id'];
-		$date = (new DateTime($fecha))->format('Y-m-d');
 		if ($peso <= 0) {
 			$_SESSION['statusBox'] = 'warning';
 			$_SESSION['statusBox_message'] = 'El peso debe ser un número positivo';
@@ -181,6 +177,10 @@ class BeneficiaryController
 	
 	public function clasificationIMC($IMC)
 	{
+		if (!is_float($IMC)) {
+			return array('type' => 'Sin datos que analizar', 'color' => 'grey-text darken-2', 'warning' => 'none');
+		}
+		
 		if ($IMC < 16) {
 			return array('type' => 'C', 'color' => 'red-text darken-2', 'warning' => 'grave');
 		}else if ($IMC <= 18.49) {

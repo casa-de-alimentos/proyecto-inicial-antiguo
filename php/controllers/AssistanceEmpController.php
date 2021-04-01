@@ -18,7 +18,8 @@ class AssistanceEmpController
 		$db = new DB();
 		$conection = $db->conectar();
 
-		$sql="SELECT employees.cedula, employees.nombre, employees.apellido, employees.nacimiento, users.name, employees.id as people_id, employees.sexo, employees.telefono FROM employees 
+		$sql="SELECT employees.cedula, employees.nombre, employees.apellido, employees.nacimiento, users.name, employees.id as people_id, employees.sexo, employees.nacionalidad, employees.serial_patria, employees.codigo_patria, employees.direccion, employees.comunidad, employees.parroquia, employees.cantidad_de_hijos, employees.telef_local, employees.telef_celular, employees.estudiante, employees.grado_instruccion, employees.desea_estudiar, employees.que_desea_estudiar, employees.habilidad_posee, employees.inscrito_CNE, employees.ejerce_voto, employees.centro_electoral, employees.enfermedad, employees.discapacidad, employees.codigo_carnet_discapacidad, employees.embarazada, employees.fecha_embarazo, employees.fecha_parto, employees.bono_eventuales, employees.bono_lactancia, employees.bono_parto, employees.bono_jose_gregoreo, employees.bono_hogares, employees.pencionado, employees.pencionado_por, employees.orga_social_politica
+		FROM employees 
 		LEFT JOIN users ON users.id = employees.created_by
 		WHERE cedula='$search'";
 

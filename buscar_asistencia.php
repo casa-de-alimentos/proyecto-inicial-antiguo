@@ -114,13 +114,12 @@
 										<th>Estatura</th>
 										<th>Registrado por</th>
 										<th>Seguimiento de nutrición</th>	
-										<?php elseif (isset($dataSearch[0]['telefono'])): ?>
+										<?php elseif (!isset($dataSearch[0]['peso'])): ?>
 										<th>Cédula</th>
 										<th>Nombres</th>
 										<th>Apellidos</th>
 										<th>Sexo</th>
 										<th>Nacimiento</th>
-										<th>teléfono</th>
 										<th>Registrado por</th>
 										<?php endif ?>
 									</tr>
@@ -156,7 +155,7 @@
 											}
 										?></td>
 									</tr>
-									<?php elseif (isset($dataSearch[0]['telefono'])): ?>
+									<?php elseif (!isset($dataSearch[0]['peso'])): ?>
 									<tr>
 										<td><?php echo $dataSearch[0]['cedula'] ?></td>
 										<td><?php echo $dataSearch[0]['nombre'] ?></td>
@@ -169,13 +168,6 @@
 											}
 										?></td>
 										<td><?php echo $dataSearch[0]['nacimiento'] ?></td>
-										<td><?php 
-											if (!empty($dataSearch[0]['telefono'])) {
-												echo $dataSearch[0]['telefono'];
-											}else {
-												echo 'No registrado';
-											}
-										?></td>
 										<td><?php echo $dataSearch[0]['name'] ?></td>
 									</tr>
 									<?php endif ?>
@@ -272,7 +264,7 @@
 							Nutrición actual: <?php echo $IMCActual ?>
 						</div>
 						<div>
-							Clasificación: 
+							Clasificación:
 							<span class='<?php echo $statusIMC['color'] ?>'><?php echo $statusIMC['type'] ?> (<?php echo $statusIMC['warning'] ?>)</span>
 						</div>
 					</div>
