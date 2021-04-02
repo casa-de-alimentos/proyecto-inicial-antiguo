@@ -156,7 +156,7 @@ class EmployeeController
 
 		$_SESSION['statusBox'] = 'success';
 		$_SESSION['statusBox_message'] = 'Elaborador añadido';
-		$this->addLog('Elaborador '.$nombre.' añadido');
+		$this->addLog('Elaborador '.$cedula.' añadido');
 		header('location: administrar_personas.php?mode=elab');
 	}
 	
@@ -225,6 +225,7 @@ class EmployeeController
 		
 		$_SESSION['statusBox'] = 'success';
 		$_SESSION['statusBox_message'] = 'Datos modificados';
+		$this->addLog('Elaborador '.$_POST['cedula'].' actualizados');
 		header('location: edit_personas.php?mode=edit&formMode=elab&idEdit='.$id);
 		return null;
 	}
@@ -267,7 +268,7 @@ class EmployeeController
 		$_SESSION['statusBox'] = 'success';
 		$_SESSION['statusBox_message'] = 'Elaborador borrado';
 		
-		$this->addLog('Elaborador '.$data['nombre'].' eliminado');
+		$this->addLog('Elaborador '.$data['cedula'].' eliminado');
 		header('location: delete_personas.php');
 	}
 	

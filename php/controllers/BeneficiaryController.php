@@ -172,7 +172,7 @@ class BeneficiaryController
 
 		$_SESSION['statusBox'] = 'success';
 		$_SESSION['statusBox_message'] = 'Beneficiario añadido';
-		$this->addLog('Beneficiario '.$nombre.' añadido');
+		$this->addLog('Beneficiario '.$cedula.' añadido');
 		header('location: administrar_personas.php?mode=ben');
 	}
 	
@@ -241,6 +241,7 @@ class BeneficiaryController
 		
 		$_SESSION['statusBox'] = 'success';
 		$_SESSION['statusBox_message'] = 'Datos modificados';
+		$this->addLog('Beneficiario '.$_POST['cedula'].' actualizado');
 		header('location: edit_personas.php?mode=edit&formMode=ben&idEdit='.$id);
 		return null;
 	}
@@ -274,7 +275,7 @@ class BeneficiaryController
 
 		$_SESSION['statusBox'] = 'success';
 		$_SESSION['statusBox_message'] = 'Beneficiario borrado';
-		$this->addLog('Beneficiario '.$data['nombre'].' eliminado');
+		$this->addLog('Beneficiario '.$data['cedula'].' eliminado');
 		header('location: administrar_personas.php?mode=ben');
 	}
 	
