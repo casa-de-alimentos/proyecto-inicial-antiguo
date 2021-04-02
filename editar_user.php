@@ -66,9 +66,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="css/main.css" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="css/roboto.css" />
+	<link rel="stylesheet" href="css/materialize.min.css">
+	<link href="css/materialize-icons.css" rel="stylesheet">
 </head>
 <body>
 	<?php require('php/componets/HeaderAuth.php') ?>
@@ -155,8 +155,8 @@
 									<tr>
 										<td><?php echo $user['username'] ?></td>
 										<td colspan="2">
-											<a href="editar_user.php?edit=<?php echo $user['id'] ?>" class="waves-effect light-blue darken-3 btn-small">Modificar</a>		
-											<a href="editar_user.php?delete=<?php echo $user['id'] ?>" class="waves-effect red darken-1 btn-small">Borrar</a>
+											<a href="editar_user.php?edit=<?php echo $user['id'] ?>" class="btn-floating waves-effect light-blue darken-3 btn-small"><i class="material-icons">edit</i></a>		
+											<a href="editar_user.php?delete=<?php echo $user['id'] ?>" class="btn-floating waves-effect red darken-1 btn-small"><i class="material-icons">delete</i></a>
 										</td>
 									</tr>
 								<?php }
@@ -173,7 +173,7 @@
 	</main>
 	
 	<script src="js/jquery-3.4.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="js/materialize.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src='js/statusBox.js'></script>
 </body>

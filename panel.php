@@ -29,9 +29,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="css/main.css" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="css/roboto.css" />
+	<link rel="stylesheet" href="css/materialize.min.css">
+	<link href="css/materialize-icons.css" rel="stylesheet">
 </head>
 <body>
 	<?php require('php/componets/HeaderAuth.php') ?>
@@ -101,9 +101,9 @@
 	</main>
 	
 	<script src="js/jquery-3.4.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <script src="js/materialize.min.js"></script>
+	<script src="js/Chart.min.js"></script>
 	<script src="js/main.js"></script>
-	<script src="js/charts.js"></script>
+	<script src="js/charts-config.js"></script>
 </body>
 </html>

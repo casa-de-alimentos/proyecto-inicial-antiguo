@@ -3,6 +3,16 @@
 @import "panel.css";
 @import "status_box.css";
 
+/* Buscador */
+input[type=search] {
+	height: 18px !important;
+}
+
+input[type=search]:focus {
+	border-bottom: 1px solid #ef5350 !important;
+	box-shadow: 0 1px 0 0 #ef5350 !important;
+}
+
 /* Change color line */
 .input-field input[type=text]:focus {
 	border-bottom: 1px solid #ef5350 !important;

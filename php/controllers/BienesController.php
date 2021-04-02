@@ -31,7 +31,7 @@ class BienesController
 		extract($_REQUEST);
 		
 		//Verify data
-		$verifyEmpty = LoginController::VerifyEmpty([$name, $stock]);
+		$verifyEmpty = LoginController::VerifyEmpty([$name, $stock, $code, $description]);
 		
 		if ($verifyEmpty) {
 			$_SESSION['statusBox'] = 'error';
@@ -53,7 +53,7 @@ class BienesController
 		$db = new DB();
 		$conection = $db->conectar();
 
-		$sql="INSERT INTO bienes (name, stock) VALUES ('$name', '$stock')";
+		$sql="INSERT INTO bienes (name, stock, code, description) VALUES ('$name', '$stock', '$code', '$description')";
 		
 		$res=mysqli_query($conection,$sql);
 		
@@ -78,7 +78,7 @@ class BienesController
 		extract($_REQUEST);
 		
 		//Verify data
-		$verifyEmpty = LoginController::VerifyEmpty([$name, $stock]);
+		$verifyEmpty = LoginController::VerifyEmpty([$name, $stock, $code, $description]);
 		
 		if ($verifyEmpty) {
 			$_SESSION['statusBox'] = 'error';
@@ -92,7 +92,7 @@ class BienesController
 		$db = new DB();
 		$conection = $db->conectar();
 
-		$sql="UPDATE bienes SET name='$name', stock='$stock' WHERE id='$id'";
+		$sql="UPDATE bienes SET name='$name', stock='$stock', code='$code', description='$description' WHERE id='$id'";
 
 		$res=mysqli_query($conection,$sql);
 

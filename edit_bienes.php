@@ -35,11 +35,15 @@
 			if ($row['id'] === $idBienes) {
 				$nameBienes = $row['name'];
 				$stockBienes = $row['stock'];
+				$codBienes = $row['code'];
+				$descripBienes = $row['description'];
 			}
 		}
 	}else {
 		$nameBienes = "";
 		$stockBienes = "";
+		$codBienes = "";
+		$descripBienes = "";
 		$idBienes = "";
 	}
 
@@ -64,9 +68,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="css/main.css" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="css/roboto.css" />
+	<link rel="stylesheet" href="css/materialize.min.css">
+	<link href="css/materialize-icons.css" rel="stylesheet">
 </head>
 <body>
 	<?php require('php/componets/HeaderAuth.php') ?>
@@ -74,7 +78,7 @@
 	<main class='container'>
 		<div class="row">
 			<div class='col s12'>
-				<h5>Editar bienes</h5>
+				<h5>Bienes</h5>
 			</div>
 			<div class='col s12'>
 				<div class="card">
@@ -83,12 +87,31 @@
 							<div class='row' style='width: 100%'>
 								<input type="hidden" name="id" value="<?php echo $idBienes ?>" />
 								<div class="input-field col s12 m6">
+									<input id="code" 
+										type="text"
+										name="code"
+										value="<?php echo $codBienes ?>" 
+									/>
+									<label for="number">Código de bien</label>
+								</div>
+								<div class="input-field col s12 m6">
 									<input id="name" 
 										type="text" 
 										name="name"
+										maxlength='15'
 										value="<?php echo $nameBienes ?>"
 									/>
 									<label for="name">Nombre</label>
+								</div>
+								
+								<div class="input-field col s12 m6">
+									<input id="code" 
+										type="text"
+										name="description"
+										maxlength='150'
+										value="<?php echo $descripBienes ?>"
+									/>
+									<label for="number">Descripción del bien</label>
 								</div>
 								
 								<div class="input-field col s12 m6">
@@ -136,8 +159,21 @@
 										<td><?php echo $row['name'] ?></td>
 										<td><?php echo $row['stock'] ?></td>
 										<td colspan="2">
-											<a href="edit_bienes.php?edit=<?php echo $row['id'] ?>" class="waves-effect light-blue darken-3 btn-small">Modificar</a>		
-											<a href="edit_bienes.php?delete=<?php echo $row['id'] ?>" class="waves-effect red darken-1 btn-small">Borrar</a>
+											<a class="btn-floating light-blue darken-3 btn-small modal-trigger" href="#modal<?php echo $row['id'] ?>"><i class="material-icons">visibility</i></a>
+											<div id="modal<?php echo $row['id'] ?>" class="modal">
+												<div class="modal-content">
+													<h4>Información sobre el bien</h4>
+													<p>Nombre: <?php echo $row['name'] ?></p>
+													<p>Código: <?php echo $row['code'] ?></p>
+													<p>Cantidad disponible: <?php echo $row['stock'] ?></p>
+													<p>Descripción: <?php echo $row['description'] ?></p>
+												</div>
+												<div class="modal-footer">
+													<a href="#!" class="modal-close waves-effect waves-green btn-flat">Entendido</a>
+												</div>
+											</div>
+											<a href="edit_bienes.php?edit=<?php echo $row['id'] ?>" class="btn-floating waves-effect light-blue darken-3 btn-small"><i class="material-icons">edit</i></a>		
+											<a href="edit_bienes.php?delete=<?php echo $row['id'] ?>" class="btn-floating waves-effect red darken-1 btn-small"><i class="material-icons">delete</i></a>
 										</td>
 									</tr>
 								<?php }
@@ -154,7 +190,7 @@
 	</main>
 	
 	<script src="js/jquery-3.4.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="js/materialize.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src='js/statusBox.js'></script>
 </body>

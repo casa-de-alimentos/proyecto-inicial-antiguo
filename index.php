@@ -37,9 +37,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="css/main.css" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="css/roboto.css" />
+	<link rel="stylesheet" href="css/materialize.min.css">
 </head>
 <body>
 	<header>
@@ -56,17 +55,13 @@
 					<div class="col s12 center-align">
 						<img src="img/logoWeb.png" alt="logo" width="150" height="150" />
 					</div>
-					<div class="col s12 form__input">
-						<div class="input-field">
-							<input type="text" name="username" id="username">
-							<label for="username">Usuario</label>
-						</div>
+					<div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+						<input type="text" name="username" id="username">
+						<label for="username">Usuario</label>
 					</div>
-					<div class="col s12 form__input">
-						<div class="input-field">
-							<input type="password" name="password" id="pass">
-							<label for="pass">Contraseña</label>
-						</div>
+					<div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+						<input type="password" name="password" id="pass">
+						<label for="pass">Contraseña</label>
 					</div>
 					<div class="col s12 center-align form__login">
 						<button 
@@ -82,7 +77,7 @@
 		<input type='hidden' id='js_statusBox' value='<?php echo json_encode($dataStatus) ?>' />
 	</main>
 	<script src="js/jquery-3.4.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="js/materialize.min.js"></script>
 	<script src='js/statusBox.js'></script>
 </body>
 </html>

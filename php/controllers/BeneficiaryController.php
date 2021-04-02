@@ -15,6 +15,56 @@ class BeneficiaryController
 		return $data['users'];
 	}
 	
+	public function index() {
+		//Pedir productos
+		$db = new DB();
+		$conection = $db->conectar();
+
+		$sql="SELECT beneficiarys.id as people_id, beneficiarys.cedula, users.name as username, beneficiarys.nombre, beneficiarys.apellido
+		FROM beneficiarys 
+		LEFT JOIN users ON users.id = beneficiarys.created_by";
+		
+		$res=mysqli_query($conection,$sql);
+		
+		$beneficiarys = [];
+		while($data=mysqli_fetch_assoc($res)) {
+			$beneficiarys[] = $data;
+		}
+		
+		return $beneficiarys;
+	}
+	
+	public function find($id) {
+		$verifyEmpty = LoginController::VerifyEmpty([$id]);
+		
+		if ($verifyEmpty) {
+			$_SESSION['statusBox'] = 'error';
+			$_SESSION['statusBox_message'] = 'ID vacio';
+			return null;
+		}
+		
+		//Consulta
+		$db = new DB();
+		$conection = $db->conectar();
+
+		$sql="SELECT *
+		FROM beneficiarys
+		WHERE id='$id'";
+		$res=mysqli_query($conection,$sql);
+
+		$cant=mysqli_num_rows($res);
+		
+		if ($cant <= 0) {
+			$_SESSION['statusBox'] = 'error';
+			$_SESSION['statusBox_message'] = 'El beneficiario ya no existe';
+			return null;
+		}
+		
+		$data=mysqli_fetch_assoc($res);
+		
+		return $data;
+	}
+	
 	public function show()
 	{
 		extract($_REQUEST);
@@ -70,7 +120,7 @@ class BeneficiaryController
 		if ($cant > 0) {
 			$_SESSION['statusBox'] = 'error';
 			$_SESSION['statusBox_message'] = 'La cedula ya está registrada en el sistema';
-			header('location: edit_beneficiarios.php');
+			header('location: edit_personas.php');
 			return null;
 		}
 		
@@ -79,14 +129,14 @@ class BeneficiaryController
 		if ($peso <= 0) {
 			$_SESSION['statusBox'] = 'warning';
 			$_SESSION['statusBox_message'] = 'El peso debe ser un número positivo';
-			header('location: edit_beneficiarios.php');
+			header('location: edit_personas.php');
 			return null;
 		}
 		
 		if ($talla <= 0) {
 			$_SESSION['statusBox'] = 'warning';
 			$_SESSION['statusBox_message'] = 'La estatura debe ser un número positivo';
-			header('location: edit_beneficiarios.php');
+			header('location: edit_personas.php');
 			return null;
 		}
 		$seguimiento = boolval($seguimiento) ? 1 : 0;
@@ -115,7 +165,7 @@ class BeneficiaryController
 		if (!$res) {
 			$_SESSION['statusBox'] = 'error';
 			$_SESSION['statusBox_message'] = 'No se pudo añadir al beneficiario';
-			header('location: edit_beneficiarios.php');
+			header('location: edit_personas.php');
 			return null;
 		}
 
@@ -123,7 +173,76 @@ class BeneficiaryController
 		$_SESSION['statusBox'] = 'success';
 		$_SESSION['statusBox_message'] = 'Beneficiario añadido';
 		$this->addLog('Beneficiario '.$nombre.' añadido');
-		header('location: edit_beneficiarios.php');
+		header('location: administrar_personas.php?mode=ben');
+	}
+	
+	public function edit($id) {
+		//Consulta
+		$db = new DB();
+		$conection = $db->conectar();
+
+		$sql="SELECT * FROM beneficiarys WHERE id='$id'";
+
+		$res=mysqli_query($conection,$sql);
+
+		$cant=mysqli_num_rows($res);
+
+		if ($cant === 0) {
+			$_SESSION['statusBox'] = 'warning';
+			$_SESSION['statusBox_message'] = 'El beneficiario ya no existe';
+			header('location: administrar_personas.php?mode=ben');
+			return null;
+		}
+		
+		// Parse inputs to string SQL
+		$userId = $_SESSION['user_id'];
+		$sql_inputs_update = '';
+		foreach($_POST as $key => $value) {
+			if (strlen($value) > 0) {
+				if ($value === 'on') {
+					// skip
+				}else if ($key === 'id') {
+					// skip
+				} else if ($key === 'nacimiento' || $key === 'fecha_embarazo' || $key === 'fecha_parto') {
+					$date = (new DateTime($value))->format('Y-m-d');
+					$sql_inputs_update= $sql_inputs_update."$key='$date',";
+				}else {
+					$sql_inputs_update= $sql_inputs_update."$key='$value',";
+				}
+			}else if ($key === 'action') {
+				// skip
+			}else {
+				$sql_inputs_update = $sql_inputs_update."$key=NULL,";
+			}
+		}
+		
+		// Verify checkboxes
+		$list = ['bono_eventuales', 'bono_lactancia', 'bono_parto', 'bono_jose_gregoreo', 'bono_hogares', 'seguimiento'];
+		foreach($list as $value) {
+			if ($_POST[$value] === 'on') {
+				$sql_inputs_update = $sql_inputs_update."$value='1',";
+			}else {
+				$sql_inputs_update = $sql_inputs_update."$value='0',";
+			}
+		}
+		
+		$sql_inputs_update = substr($sql_inputs_update, 0, -1);
+		$sql = "UPDATE beneficiarys SET $sql_inputs_update WHERE id='$id'";
+		
+		$res=mysqli_query($conection,$sql);
+		
+		if (!$res) {
+			$_SESSION['statusBox'] = 'warning';
+			$_SESSION['statusBox_message'] = 'No se pudieron modificar los datos';
+			header('location: edit_personas.php?mode=edit&formMode=ben&idEdit='.$id);
+			return null;
+		}
+		
+		
+		$_SESSION['statusBox'] = 'success';
+		$_SESSION['statusBox_message'] = 'Datos modificados';
+		header('location: edit_personas.php?mode=edit&formMode=ben&idEdit='.$id);
+		return null;
 	}
 	
 	public function delete($id)
@@ -134,7 +253,7 @@ class BeneficiaryController
 		if ($verifyEmpty) {
 			$_SESSION['statusBox'] = 'error';
 			$_SESSION['statusBox_message'] = 'Id vacio';
-			header('location: delete_personas.php');
+			header('location: administrar_personas.php?mode='.$mode);
 			return null;
 		}
 		
@@ -156,7 +275,7 @@ class BeneficiaryController
 		$_SESSION['statusBox'] = 'success';
 		$_SESSION['statusBox_message'] = 'Beneficiario borrado';
 		$this->addLog('Beneficiario '.$data['nombre'].' eliminado');
-		header('location: delete_personas.php');
+		header('location: administrar_personas.php?mode=ben');
 	}
 	
 	public function addLog($action)

@@ -15,6 +15,56 @@ class EmployeeController
 		return $data['users'];
 	}
 	
+	public function index() {
+		//Pedir productos
+		$db = new DB();
+		$conection = $db->conectar();
+
+		$sql="SELECT employees.id as people_id, employees.cedula, users.name as username, employees.nombre, employees.apellido
+		FROM employees
+		LEFT JOIN users ON users.id = employees.created_by";
+		
+		$res=mysqli_query($conection,$sql);
+		
+		$employees = [];
+		while($data=mysqli_fetch_assoc($res)) {
+			$employees[] = $data;
+		}
+		
+		return $employees;
+	}
+	
+	public function find($id) {
+		$verifyEmpty = LoginController::VerifyEmpty([$id]);
+		
+		if ($verifyEmpty) {
+			$_SESSION['statusBox'] = 'error';
+			$_SESSION['statusBox_message'] = 'ID vacio';
+			return null;
+		}
+		
+		//Consulta
+		$db = new DB();
+		$conection = $db->conectar();
+
+		$sql="SELECT *
+		FROM employees
+		WHERE id='$id'";
+		$res=mysqli_query($conection,$sql);
+
+		$cant=mysqli_num_rows($res);
+		
+		if ($cant <= 0) {
+			$_SESSION['statusBox'] = 'error';
+			$_SESSION['statusBox_message'] = 'El empleado ya no existe';
+			return null;
+		}
+		
+		$data=mysqli_fetch_assoc($res);
+		
+		return $data;
+	}
+	
 	public function show()
 	{
 		extract($_REQUEST);
@@ -70,7 +120,7 @@ class EmployeeController
 		if ($cant > 0) {
 			$_SESSION['statusBox'] = 'warning';
 			$_SESSION['statusBox_message'] = 'La cedula ya está registrada en el sistema';
-			header('location: edit_elaborador.php');
+			header('location: edit_personas.php?mode=elab');
 			return null;
 		}
 		
@@ -93,22 +143,90 @@ class EmployeeController
 		}
 		
 		$sql="INSERT INTO employees ($sql_inputs created_by) VALUES ($sql_values '$userId')";
-		$_SESSION['test'] = $sql;
-		
+
 		$res=mysqli_query($conection,$sql);
 
 		if (!$res) {
 			$_SESSION['statusBox'] = 'error';
 			$_SESSION['statusBox_message'] = 'No se pudo añadir al empleado';
-			header('location: edit_elaborador.php');
+			header('location: edit_personas.php?mode=elab');
 			return null;
 		}
 
 
 		$_SESSION['statusBox'] = 'success';
-		$_SESSION['statusBox_message'] = 'Empleado añadido';
+		$_SESSION['statusBox_message'] = 'Elaborador añadido';
 		$this->addLog('Elaborador '.$nombre.' añadido');
-		header('location: edit_elaborador.php');
+		header('location: administrar_personas.php?mode=elab');
+	}
+	
+	public function edit($id) {
+		//Consulta
+		$db = new DB();
+		$conection = $db->conectar();
+
+		$sql="SELECT * FROM employees WHERE id='$id'";
+
+		$res=mysqli_query($conection,$sql);
+
+		$cant=mysqli_num_rows($res);
+
+		if ($cant === 0) {
+			$_SESSION['statusBox'] = 'warning';
+			$_SESSION['statusBox_message'] = 'El elaborador ya no existe';
+			header('location: administrar_personas.php?mode=elab');
+			return null;
+		}
+		
+		// Parse inputs to string SQL
+		$userId = $_SESSION['user_id'];
+		$sql_inputs_update = '';
+		foreach($_POST as $key => $value) {
+			if (strlen($value) > 0) {
+				if ($value === 'on') {
+					// skip
+				}else if ($key === 'id') {
+					// skip
+				} else if ($key === 'nacimiento' || $key === 'fecha_embarazo' || $key === 'fecha_parto') {
+					$date = (new DateTime($value))->format('Y-m-d');
+					$sql_inputs_update= $sql_inputs_update."$key='$date',";
+				}else {
+					$sql_inputs_update= $sql_inputs_update."$key='$value',";
+				}
+			}else if ($key === 'action') {
+				// skip
+			}else {
+				$sql_inputs_update = $sql_inputs_update."$key=NULL,";
+			}
+		}
+		
+		// Verify checkboxes
+		$list = ['bono_eventuales', 'bono_lactancia', 'bono_parto', 'bono_jose_gregoreo', 'bono_hogares'];
+		foreach($list as $value) {
+			if ($_POST[$value] === 'on') {
+				$sql_inputs_update = $sql_inputs_update."$value='1',";
+			}else {
+				$sql_inputs_update = $sql_inputs_update."$value='0',";
+			}
+		}
+		
+		$sql_inputs_update = substr($sql_inputs_update, 0, -1);
+		$sql = "UPDATE employees SET $sql_inputs_update WHERE id='$id'";
+		
+		$res=mysqli_query($conection,$sql);
+		
+		if (!$res) {
+			$_SESSION['statusBox'] = 'warning';
+			$_SESSION['statusBox_message'] = 'No se pudieron modificar los datos';
+			header('location: edit_personas.php?mode=edit&formMode=elab&idEdit='.$id);
+			return null;
+		}
+		
+		
+		$_SESSION['statusBox'] = 'success';
+		$_SESSION['statusBox_message'] = 'Datos modificados';
+		header('location: edit_personas.php?mode=edit&formMode=elab&idEdit='.$id);
+		return null;
 	}
 	
 	public function delete($id)
@@ -141,13 +259,13 @@ class EmployeeController
 		
 		if (!$res) {
 			$_SESSION['statusBox'] = 'error';
-			$_SESSION['statusBox_message'] = 'El empleado ya no existe';
+			$_SESSION['statusBox_message'] = 'El elaborador ya no existe';
 			header('location: delete_personas.php');
 			return null;
 		}
 
 		$_SESSION['statusBox'] = 'success';
-		$_SESSION['statusBox_message'] = 'Empleado borrado';
+		$_SESSION['statusBox_message'] = 'Elaborador borrado';
 		
 		$this->addLog('Elaborador '.$data['nombre'].' eliminado');
 		header('location: delete_personas.php');

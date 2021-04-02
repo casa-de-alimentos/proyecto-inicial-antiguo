@@ -34,10 +34,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="css/main.css" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="css/roboto.css" />
+	<link rel="stylesheet" href="css/materialize.min.css">
+	<link href="css/materialize-icons.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/jquery.dataTables.min.css">
 </head>
 <body>
 	<?php require('php/componets/HeaderAuth.php') ?>
@@ -54,7 +54,7 @@
 							<thead>
 								<tr>
 									<th>Fecha</th>
-									<th>Acción</th>
+									<th>Acciรณn</th>
 									<th>Cuenta</th>
 								</tr>
 							</thead>
@@ -80,8 +80,8 @@
 	</main>
 	
 	<script src="js/jquery-3.4.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script src="js/materialize.min.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src='js/statusBox.js'></script>
 	<script src='js/table_compac.js'></script>

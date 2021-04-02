@@ -1,13 +1,6 @@
-.form__input {
-	display: flex;
-	justify-content: center;
-}
-
 #username, #pass {
   height: 40px;
   border-radius: 10px;
-	width: 400px;
-	max-width: 400px;
 }
 
 #remember {

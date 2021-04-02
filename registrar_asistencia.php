@@ -55,9 +55,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" href="css/main.css" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="css/roboto.css" />
+	<link rel="stylesheet" href="css/materialize.min.css">
+	<link href="css/materialize-icons.css" rel="stylesheet">
 </head>
 <body>
 	<?php require('php/componets/HeaderAuth.php') ?>
@@ -189,7 +189,7 @@
 									name="peso"
 									step="0.01" 
 								/>
-								<label for="peso">Nuevo peso</label>
+								<label for="peso">Nuevo peso (Ejem: 50.30)</label>
 							</div>
 							<div class="input-field col s12">
 								<input id="talla" 
@@ -197,7 +197,7 @@
 									name="talla"
 									step="0.01" 
 								/>
-								<label for="talla">Nueva estatura</label>
+								<label for="talla">Nueva estatura (Ejem: 1.75)</label>
 							</div>
 							<?php endif ?>
 							<div class='center-align'>
@@ -229,7 +229,7 @@
 	</main>
 	
 	<script src="js/jquery-3.4.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="js/materialize.min.js"></script>
 	<script src="js/main.js"></script>
 	<script src="js/statusBox.js"></script>
 </body>

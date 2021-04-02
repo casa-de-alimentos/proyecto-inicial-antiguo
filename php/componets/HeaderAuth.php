@@ -32,15 +32,11 @@ switch ($drawerActive) {
 
 //List of Asistencia
 switch ($drawerActive) {
-	case 'edit_beneficiarios.php':
-		$asistencia='active';
-		break;
-
-	case 'edit_elaborador.php':
+	case 'administrar_personas.php':
 		$asistencia='active';
 		break;
 		
-	case 'delete_personas.php':
+	case 'edit_personas.php':
 		$asistencia='active';
 		break;
 
@@ -85,9 +81,7 @@ $suministros = ($drawerActive==='suministros.php') ? 'active' : '' ;
 $consumo = ($drawerActive==='consumo.php') ? 'active' : '' ;
 $productosDisponibles = ($drawerActive==='productos_disponibles.php') ? 'active' : '' ;
 
-$addBenef = ($drawerActive==='edit_beneficiarios.php') ? 'active' : '' ;
-$addEmp = ($drawerActive==='edit_empleado.php') ? 'active' : '' ;
-$deletePer = ($drawerActive==='delete_personas.php') ? 'active' : '' ;
+$adminPeople = ($drawerActive==='administrar_personas.php' || $drawerActive==='edit_personas.php') ? 'active' : '' ;
 $regAsis = ($drawerActive==='registrar_asistencia.php') ? 'active' : '' ;
 $searchAsis = ($drawerActive==='buscar_asistencia.php') ? 'active' : '' ;
 
@@ -112,7 +106,7 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 					
 				</div>
 				<a>
-					<img src="img/logoWeb.png" alt="logo" width="80" height="80" />
+					<img src="img/logoWeb.png" alt="logo" width="80" height="80" style='background: #ffffffc9; border-radius: 20px;' />
 				</a>
 				<a>
 					<span class="white-text name"><?php echo $_SESSION['name'] ?></span>
@@ -174,22 +168,10 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 					<a class="collapsible-header">Asistencia<i class="material-icons">arrow_drop_down</i></a>
 					<div class="collapsible-body">
 						<ul>
-							<li class='<?php echo $addBenef ?>'>
-								<a href="edit_beneficiarios.php">
+							<li class='<?php echo $adminPeople ?>'>
+								<a href="administrar_personas.php">
 									<i class="material-icons">mode_edit</i>
-									Añadir beneficiario
-								</a>
-							</li>
-							<li class='<?php echo $addEmp ?>'>
-								<a href="edit_elaborador.php">
-									<i class="material-icons">mode_edit</i>
-									Añadir elaborador
-								</a>
-							</li>
-							<li class='<?php echo $deletePer ?>'>
-								<a href="delete_personas.php">
-									<i class="material-icons">delete</i>
-									Eliminar Elab/Bene
+									Administrar Benef/Elab
 								</a>
 							</li>
 							<li class='<?php echo $regAsis ?>'>
@@ -209,7 +191,7 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 				</li>
 			</ul>
 		</li>
-		
+		<?php if ($_SESSION['super_user'] == 1): ?>
 		<li class="no-padding">
 			<ul class="collapsible collapsible-accordion">
 				<li>
@@ -225,12 +207,14 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 								</a>
 							</li>
 							<?php endif ?>
+							<?php if ($_SESSION['super_user'] == 1): ?>
 							<li class='<?php echo $movim ?>'>
 								<a href="movimientos.php">
 									<i class="material-icons">computer</i>
 									Movimientos
 								</a>
 							</li>
+							<?php endif ?>
 							<?php if ($_SESSION['super_user'] == 1): ?>
 							<li class='<?php echo $backup ?>'>
 								<a href="respaldar_sistema.php">
@@ -244,6 +228,6 @@ $backup = ($drawerActive==='respaldar_sistema.php') ? 'active' : '' ;
 				</li>
 			</ul>
 		</li>
-		
+		<?php endif ?>
 	</ul>
 </header>

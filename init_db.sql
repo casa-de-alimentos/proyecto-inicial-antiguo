@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 01-04-2021 a las 02:05:14
+-- Tiempo de generación: 02-04-2021 a las 03:53:46
 -- Versión del servidor: 5.7.33-0ubuntu0.18.04.1
 -- Versión de PHP: 7.3.27-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -80,7 +80,7 @@ CREATE TABLE `beneficiarys` (
   `centro_electoral` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `enfermedad` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `discapacidad` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `codigo_carnet_discapacidad` bigint(20) DEFAULT NULL,
+  `codigo_carnet_discapacidad` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `embarazada` set('Si','No') COLLATE utf8_unicode_ci NOT NULL,
   `fecha_embarazo` date DEFAULT NULL,
   `fecha_parto` date DEFAULT NULL,
@@ -105,7 +105,9 @@ CREATE TABLE `beneficiarys` (
 CREATE TABLE `bienes` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `stock` int(11) NOT NULL
+  `stock` int(11) NOT NULL,
+  `code` varchar(15) NOT NULL,
+  `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -140,7 +142,7 @@ CREATE TABLE `employees` (
   `centro_electoral` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `enfermedad` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `discapacidad` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `codigo_carnet_discapacidad` bigint(20) DEFAULT NULL,
+  `codigo_carnet_discapacidad` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `embarazada` set('Si','No') COLLATE utf8_unicode_ci NOT NULL,
   `fecha_embarazo` date DEFAULT NULL,
   `fecha_parto` date DEFAULT NULL,
@@ -178,7 +180,7 @@ CREATE TABLE `products` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `stock` int(11) NOT NULL,
-  `medida` set('Kg','Lts') COLLATE utf8_unicode_ci NOT NULL
+  `medida` set('Kg','Lts','Und') COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -323,7 +325,7 @@ ALTER TABLE `storage`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

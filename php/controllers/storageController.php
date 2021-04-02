@@ -65,28 +65,22 @@ class StorageController
 			return null;
 		}
 		
-		//Añadir storage
+		//DB
 		$db = new DB();
 		$conection = $db->conectar();
-
-		$date = (new DateTime())->format('Y-m-d H:i:s');
-		$sql="INSERT INTO storage (product_id, action, stock, date) VALUES
-		('$producto', '$option', '$stock', '$date')";
 		
+		// Verificar Stock consumo
+		$sql="SELECT stock FROM products WHERE id='$producto'";
 		$res=mysqli_query($conection,$sql);
+		$data=mysqli_fetch_assoc($res);
 		
-		if (!$res) {
+		if ($option !== 'added' && ($data['stock'] - $stock) < 0) {
 			$_SESSION['statusBox'] = 'error';
+			$_SESSION['statusBox_message'] = 'No dispone de esa cantidad actualmente';
 			
-			if ($option !== 'added') {
-				$_SESSION['statusBox_message'] = 'No se pudo registrar el consumo';
-				header('location: consumo.php');	
-			}else {
-				$_SESSION['statusBox_message'] = 'No se pudo registrar la entrega';
-				header('location: suministros.php');
-			}
+			header('location: consumo.php');
 			return null;
-    }
+		}
 		
 		//Actualizar stock
     $sql='';
@@ -104,6 +98,26 @@ class StorageController
 			if ($option !== 'added') {
 				header('location: consumo.php');	
 			}else {
+				header('location: suministros.php');
+			}
+			return null;
+    }
+		
+		//Añadir storage
+		$date = (new DateTime())->format('Y-m-d H:i:s');
+		$sql="INSERT INTO storage (product_id, action, stock, date) VALUES
+		('$producto', '$option', '$stock', '$date')";
+		
+		$res=mysqli_query($conection,$sql);
+		
+		if (!$res) {
+			$_SESSION['statusBox'] = 'error';
+			
+			if ($option !== 'added') {
+				$_SESSION['statusBox_message'] = 'No se pudo registrar el consumo';
+				header('location: consumo.php');	
+			}else {
+				$_SESSION['statusBox_message'] = 'No se pudo registrar la entrega';
 				header('location: suministros.php');
 			}
 			return null;
